@@ -1,0 +1,6 @@
+define('ACTION_EDIT_CROP', 'edit_crop');						// TODO: Every corner should be dragable
+define('ACTION_EDIT_TEXT', 'edit_text');						// Not implemented
+define('ACTION_EFFECT_SHEAR', 'effect_shear');				// TODO: SVG
+define('ACTION_DRAW_RECTANGLE', 'draw_rectangle');		// TODO: SVG
+define('ACTION_DRAW_CIRCLE', 'draw_circle');					// TODO: SVG
+
