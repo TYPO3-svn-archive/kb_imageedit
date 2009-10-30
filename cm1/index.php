@@ -755,6 +755,7 @@ var baseYsize = '.$this->y.';
 
 var actualXsize = '.$this->zoom_x.';
 var actualYsize = '.$this->zoom_y.';
+
 		</script>';
 		$HTML .= '<div class="kb_imageedit-dynTab">'.chr(10);
 		$HTML .= '<p>'.$LANG->getLL('edit_info').'</p>';
@@ -1328,22 +1329,20 @@ function rotate_to(angle)	{
 		return $HTML;
 	}
 
+//CROP BEGIN
 	function render__edit_crop($HTML)	{
 		global $LANG;
 		$this->content = str_replace('//###INIT_CODE###', ' 
-
 //###INIT_CODE###
-
 var oldDTM_toggle_Func = DTM_toggle;
 var DHTML_initialized = false;
-
 function newDTM_toggle(idBase, index, isInit)	{
 	oldDTM_toggle_Func(idBase, index, isInit);
 	if (index==2)	{
 		if (document.getElementById(idBase+"-"+index+"-DIV"))	{
 			if ((document.getElementById(idBase+"-"+index+"-DIV").style.display == "block")&&!DHTML_initialized)	{
 				DHTML_initialized = true;
-				ADD_DHTML("cropdiv"+MAXOFFLEFT+0+MAXOFFRIGHT+'.($this->zoom_x-$this->cropFrameX_zoom).'+MAXOFFTOP+0+MAXOFFBOTTOM+'.($this->zoom_y-$this->cropFrameY_zoom).'+MAXWIDTH+'.$this->zoom_x.'+MAXHEIGHT+'.$this->zoom_y.');
+				ADD_DHTML("cropdiv"+MAXOFFLEFT+0+MAXOFFRIGHT+'.($this->zoom_x-$this->cropFrameX_zoom).'+MAXOFFTOP+0+MAXOFFBOTTOM+'.($this->zoom_y-$this->cropFrameY_zoom).'+MAXWIDTH+'.$this->zoom_x.'+MAXHEIGHT+'.$this->zoom_y.'+MINWIDTH+3+MINHEIGHT+3);
 				dd.elements.cropdiv.div.ondblclick = dblClick;
 			}
 		}
@@ -1376,22 +1375,17 @@ function dblClick() {
 	document.kb_imageedit_form.submit();
 }
 
-
 function my_DragFunc()
 {
 	if (zoomLevel==100)	{
 		document.kb_imageedit_form.offsetx.value = dd.obj.x-dd.obj.defx;
 		document.kb_imageedit_form.offsety.value = dd.obj.y-dd.obj.defy;
-		document.kb_imageedit_form.width.value = dd.obj.w;
-		document.kb_imageedit_form.height.value = dd.obj.h;
 	} else	{
-		document.kb_imageedit_form.offsetx.value = Math.round((dd.obj.x-dd.obj.defx)*100/zoomLevel);
-		document.kb_imageedit_form.offsety.value = Math.round((dd.obj.y-dd.obj.defy)*100/zoomLevel);
-		document.kb_imageedit_form.width.value = Math.round((dd.obj.w)*100/zoomLevel);
-		document.kb_imageedit_form.height.value = Math.round((dd.obj.h)*100/zoomLevel);
+		document.kb_imageedit_form.offsetx.value = Math.round((dd.obj.x-dd.obj.defx)/(zoomLevel/100));
+		document.kb_imageedit_form.offsety.value = Math.round((dd.obj.y-dd.obj.defy)/(zoomLevel/100));
 	}
-	dd.obj.maxw = actualXsize-(dd.obj.x-dd.obj.defx);
-	dd.obj.maxh = actualYsize-(dd.obj.y-dd.obj.defy);
+	dd.obj.maxw = actualXsize -(dd.obj.x-dd.obj.defx);
+	dd.obj.maxh = actualYsize -(dd.obj.y-dd.obj.defy);
 }
 function my_ResizeFunc()
 {
@@ -1399,26 +1393,28 @@ function my_ResizeFunc()
 		document.kb_imageedit_form.width.value = dd.obj.w;
 		document.kb_imageedit_form.height.value = dd.obj.h;
 	} else	{
-		document.kb_imageedit_form.width.value = Math.round(dd.obj.w*100/zoomLevel);
-		document.kb_imageedit_form.height.value = Math.round(dd.obj.h*100/zoomLevel);
+		document.kb_imageedit_form.width.value = Math.round(dd.obj.w / (zoomLevel/100));
+		document.kb_imageedit_form.height.value = Math.round(dd.obj.h / (zoomLevel/100));
 	}
 	dd.obj.maxoffr = actualXsize-dd.obj.w;
 	dd.obj.maxoffb = actualYsize-dd.obj.h;
 }
 
-function redraw_div()	{
+
+function redraw_div(dimension)	{
 	var x = parseInt(document.kb_imageedit_form.offsetx.value);
 	var y = parseInt(document.kb_imageedit_form.offsety.value);
 	var w = parseInt(document.kb_imageedit_form.width.value);
 	var h = parseInt(document.kb_imageedit_form.height.value);
-
+	var div = dd.elements["cropdiv"];
+	
 	if (zoomLevel!=100)	{
-		x = Math.round(x*100/zoomLevel);
-		y = Math.round(y*100/zoomLevel);
-		w = Math.round(w*100/zoomLevel);
-		h = Math.round(h*100/zoomLevel);
+		x = Math.floor(x*zoomLevel/100);
+		y = Math.floor(y*zoomLevel/100);
+		w = Math.ceil(w*zoomLevel/100);
+		h = Math.ceil(h*zoomLevel/100);
 	}
-
+	
 	if (isNaN(x))	{
 		x = 0;
 	}
@@ -1426,27 +1422,74 @@ function redraw_div()	{
 		y = 0;
 	}
 	if (isNaN(w))	{
-		w = '.intval($this->zoom_x/2).';
+		w = '.intval($this->x/2).';
 	}
 	if (isNaN(h))	{
-		h = '.intval($this->zoom_y/2).';
+		h = '.intval($this->y/2).';
 	}
-	if (w > ('.$this->zoom_x.'-x))	{
-		w = '.$this->zoom_x.'-x;
+	
+	if(x<0) x=0;
+	if(y<0) y=0;
+	if(w < div.minw) w = div.minw;
+	if(h < div.minh) h = div.minh;
+	
+	//x or y is grater than the image
+	if(x >= '.$this->zoom_x.' - div.minw ) { x = '.$this->zoom_x.' - div.minw;  }
+	if(y >= '.$this->zoom_y.' - div.minh ) { y = '.$this->zoom_y.' - div.minh; }
+	
+	if(dimension == "x"){
+	/* the x parameter was changed, so we respect that and change the width */
+		if (x > ('.$this->zoom_x.'-w))	{
+			w = '.$this->zoom_x.'-x;
+		}
+	}else 
+		if(dimension == "y"){
+			
+			if (y > ('.$this->zoom_y.'-h) )	{
+				h = '.$this->zoom_y.'-y;
 	}
-	if (h > ('.$this->zoom_y.'-y))	{
-		h = '.$this->zoom_y.'-y;
-	}
+	}else 
+		if(dimension == "w"){
+			if (w > '.$this->zoom_x.'){
+			w = '.$this->zoom_x.';
+			x=0;
+			}else
+			if (w > ('.$this->zoom_x.'-x))	{
+			x = '.$this->zoom_x.'-w;
+			}
+			if(w == '.$this->zoom_x.')
+			x=0;
+			
+	}else 
+		if(dimension == "h"){
+		if (h > '.$this->zoom_y.'){
+			h = '.$this->zoom_y.';
+			y=0;
+			}else
+		if (h > ('.$this->zoom_y.'-y))	{
+		y = '.$this->zoom_y.'-h;
+		}
+		if(h == '.$this->zoom_y.')
+			y=0;
+	}else  { document.write("wrong parameter! in redraw_div");
+		return false;
+		}
+		
+		if((x+w) > '.$this->zoom_x.') x= '.$this->zoom_x.' -w;
+		if((y+h) > '.$this->zoom_y.') x= '.$this->zoom_y.' -h;
+		
+	document.kb_imageedit_form.offsetx.value = Math.round(x/(zoomLevel/100));
+	document.kb_imageedit_form.offsety.value = Math.round(y/(zoomLevel/100));
+	document.kb_imageedit_form.width.value = Math.round(w/(zoomLevel/100));
+	document.kb_imageedit_form.height.value = Math.round(h/(zoomLevel/100));
+		
 	dd.elements["cropdiv"].moveTo(x+dd.elements["cropdiv"].defx, y+dd.elements["cropdiv"].defy);
 	dd.elements["cropdiv"].resizeTo(w, h);
-	document.kb_imageedit_form.offsetx.value = x;
-	document.kb_imageedit_form.offsety.value = y;
-	document.kb_imageedit_form.width.value = w;
-	document.kb_imageedit_form.height.value = h;
+	div.maxoffr = actualXsize-div.w;
+	div.maxoffb = actualYsize-div.h;
+	
 	return true;
 }
-
-
 					');
 		$HTML .= '<tr>
 						<td colspan="4">
@@ -1474,13 +1517,13 @@ function redraw_div()	{
 							Offset X : 
 						</td>
 						<td class="input">
-							<input type="text" name="offsetx" value="0" class="number" onChange="return redraw_div()" />
+							<input type="text" name="offsetx" value="0" class="number" onChange="return redraw_div(\'x\')" />
 						</td>
 						<td class="label">
 							Offset Y : 
 						</td>
 						<td class="input">
-							<input type="text" name="offsety" value="0" class="number" onChange="return redraw_div();" />
+							<input type="text" name="offsety" value="0" class="number" onChange="return redraw_div(\'y\');" />
 						</td>
 					</tr>
 					<tr>
@@ -1488,19 +1531,21 @@ function redraw_div()	{
 							Width : 
 						</td>
 						<td class="input">
-							<input type="text" name="width" value="'.$this->cropFrameX.'" class="number" onChange="return redraw_div();" />
+							<input type="text" name="width" value="'.$this->cropFrameX.'" class="number" onChange="return redraw_div(\'w\');" />
 						</td>
 						<td class="label">
 							Height : 
 							</td>
 						<td class="input">
-							<input type="text" name="height" value="'.$this->cropFrameY.'" class="number" onChange="return redraw_div();" />
+							<input type="text" name="height" value="'.$this->cropFrameY.'" class="number" onChange="return redraw_div(\'h\');" />
 							<input type="hidden" name="action" value="edit_crop" />
 						</td>
 					</tr>';
 		return $HTML;
 	}
+//CROP END
 
+//SCALE BEGIN
 	function render__edit_scale($HTML)	{
 		global $LANG;
 		$this->endDHTML = $this->doc->wrapScriptTags('
