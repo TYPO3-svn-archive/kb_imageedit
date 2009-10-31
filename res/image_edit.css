@@ -1,0 +1,81 @@
+
+div.typo3-bigDoc	{
+	width: auto;
+	margin-right: 10px;
+}
+div.kb_imageedit-dynTab	{
+	margin: 15px;
+	width: 100%;
+}
+div.typo3-dyntabmenu-divs-foldout div.c-tablayer	{
+	background-color: #D9D5C9;
+	margin-left: 0px;
+	width: auto;
+}
+table.kb_imageedit-imagetable {
+	background-color: #ABBBB4; 
+}
+table.kb_imageedit-imagetable td.kb_imageedit-imagetd {
+	text-align: center;
+	vertical-align: middle;
+	padding: 20px;
+	vertical-align: top;
+}
+#kb_imageedit-mainimage {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	background-image: url(../res/bg_pattern.png);
+	background-repeat: repeat;
+}
+#kb_imageedit-imageself {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+/*###CSS_EXTRA###*/
+
+table.kb_imageedit-actiontable	{
+	margin: 15px 0px 15px 0px;
+	width: 94%;
+}
+
+table.kb_imageedit-actiontable .label	{
+	padding: 5px 15px 0px 0px;
+}
+table.kb_imageedit-actiontable .value {
+	padding: 5px 0px 0px 0px;
+	font-weight: bold;
+}
+table.kb_imageedit-actiontable .input {
+	padding: 5px 40px 0px 0px;
+}
+table.kb_imageedit-actiontable .submit {
+	padding: 10px 0px 10px 20px;
+}
+table.kb_imageedit-actiontable .save {
+	padding: 10px 0px 10px 0px;
+	text-align: center;
+}
+table.kb_imageedit-actiontable .submit input {
+	margin: 10px 0px 0px 0px;
+	border: 1px solid #333333;
+	width: 180px;
+}
+table.kb_imageedit-actiontable .save input {
+	margin: 10px 0px 0px 0px;
+	border: 1px solid #333333;
+	width: 180px;
+	background-color: #ff0000;
+	color: white;
+	font-weight: bold;
+}
+table.kb_imageedit-actiontable .input input.number {
+	border: 1px solid #333333;
+	width: 120px;
+}
+table.kb_imageedit-actiontable .input input.string {
+	border: 1px solid #333333;
+	width: 180px;
+}
+

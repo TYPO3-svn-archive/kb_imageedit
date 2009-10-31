@@ -28,6 +28,45 @@
  */
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
+ *
+ *
+ *
+ *  112: class tx_kbimageedit_cm1 extends t3lib_SCbase
+ *  130:     public function menuConfig()
+ *  313:     public function main()
+ *  611:     protected function getTreeEntry(&$arr, $actualPath, $file, $saved, $titleAdd, $pid)
+ *  641:     public function printContent()
+ *  655:     protected function &getFileFromPath($path, &$subtree)
+ *  683:     protected function moduleContent()
+ *  702:     protected function getMenuItem_ImageInfo()
+ *  747:     protected function getMenuItem_ImageEdit()
+ *  882:     protected function render__effect_none($HTML, $cmd = '')
+ *  906:     protected function render__effect_simple($HTML, $cmd = '')
+ *  935:     protected function render__effect_double($HTML, $cmd = '')
+ *  967:     protected function render__effect_rotate($HTML)
+ * 1066:     protected function render__effect_gamma($HTML)
+ * 1122:     protected function render__file_save($HTML)
+ * 1161:     protected function render__edit_crop($HTML)
+ * 1278:     protected function render__edit_scale($HTML)
+ * 1571:     protected function getMenuItem_History()
+ * 1611:     protected function func__effect_none($image, $cmd, $x, $y)
+ * 1631:     protected function func__effect_simple($image, $cmd, $x, $y)
+ * 1677:     protected function func__effect_double($image, $cmd, $x, $y)
+ * 1707:     protected function func__effect_gamma($image, $cmd, $x, $y)
+ * 1737:     protected function func__effect_rotate($image, $cmd, $x, $y, $angle = false, $dontstore = false)
+ * 1763:     protected function func__file_save($save, $cmd, $x, $y)
+ * 1805:     protected function func__edit_crop($image, $cmd, $x, $y)
+ * 1832:     protected function func__edit_scale($image, $cmd, $x, $y)
+ * 1852:     protected function identifyColors($file)
+ * 1880:     protected function storeImage_Object($im, $origname, $action)
+ * 1920:     protected function storeImage_File($newname, $action)
+ * 1944:     protected function getTempName($origname)
+ * 1956:     protected function cleanUpTempDir()
+ * 1970:     protected function checkSVGsupport()
+ *
+ * TOTAL FUNCTIONS: 31
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
  */
 
 // define actoin constants
@@ -279,23 +318,24 @@ class tx_kbimageedit_cm1 extends t3lib_SCbase {
 		$this->doc = t3lib_div::makeInstance('bigDoc');
 		$this->doc->backPath = $BACK_PATH;
 		$this->doc->form='<form action="index.php" method="POST" name="kb_imageedit_form" enctype="multipart/form-data" target="_self">';
-		
+
 		if ($this->modTSconfig['properties']['disable_zoom'])	{
 			$this->MOD_SETTINGS['zoom'] = 100.0;
 		}
-	
+
 		$this->doc->bodyTagAdditions = '###ON_LOAD_EVENT###';
 
 			// JavaScript
+			// String "function" is split up because of extdeveval and API-Header at top of class file
 		$this->doc->JScode = $this->doc->wrapScriptTags('
-	function windowLoad()	{
+	func'.'tion windowLoad()	{
 //###ADD_ONLOAD###
 	}
-	
+
 var zoomLevel = '.$this->MOD_SETTINGS['zoom'].';
 
 				script_ended = 0;
-				function jumpToUrl(URL)	{
+				func'.'tion jumpToUrl(URL)	{
 					document.location = URL;
 				}
 			');
@@ -409,7 +449,7 @@ var zoomLevel = '.$this->MOD_SETTINGS['zoom'].';
 					break;
 				}
 			}
-		
+
 			$this->useSVG = false;
 			switch ((string)$this->MOD_SETTINGS['action'])	{
 				case ACTION_EFFECT_ROTATE:
@@ -502,95 +542,10 @@ var zoomLevel = '.$this->MOD_SETTINGS['zoom'].';
 				exit();
 			}
 
-
-			$this->doc->inDocStyles = '
-div.typo3-bigDoc	{
-	width: auto;
-	margin-right: 10px;
-}
-div.kb_imageedit-dynTab	{
-	margin: 15px;
-	width: 100%;
-}
-div.typo3-dyntabmenu-divs-foldout div.c-tablayer	{
-	background-color: #D9D5C9;
-	margin-left: 0px;
-	/*
-	width: '.(($tmp=($this->zoom_x+70))<760?'auto':$tmp.'px').';
-	*/
-	width: auto;
-}
-table.kb_imageedit-imagetable {
-	background-color: #ABBBB4; 
-}
-table.kb_imageedit-imagetable td.kb_imageedit-imagetd {
-	text-align: center;
-	vertical-align: middle;
-	padding: 20px;
-	vertical-align: top;
-}
-#kb_imageedit-mainimage {
-	position: relative;
-	top: 0px;
-	left: 0px;
-	background-image: url(../res/bg_pattern.png);
-	background-repeat: repeat;
-	/*
-	width: '.$this->zoom_x.'px;
-	height: '.$this->y.'px;
-	*/
-}
-#kb_imageedit-imageself {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-/*###CSS_EXTRA###*/
-
-table.kb_imageedit-actiontable	{
-	margin: 15px 0px 15px 0px;
-	width: 94%;
-}
-
-table.kb_imageedit-actiontable .label	{
-	padding: 5px 15px 0px 0px;
-}
-table.kb_imageedit-actiontable .value {
-	padding: 5px 0px 0px 0px;
-	font-weight: bold;
-}
-table.kb_imageedit-actiontable .input {
-	padding: 5px 40px 0px 0px;
-}
-table.kb_imageedit-actiontable .submit {
-	padding: 10px 0px 10px 20px;
-}
-table.kb_imageedit-actiontable .save {
-	padding: 10px 0px 10px 0px;
-	text-align: center;
-}
-table.kb_imageedit-actiontable .submit input {
-	margin: 10px 0px 0px 0px;
-	border: 1px solid #333333;
-	width: 180px;
-}
-table.kb_imageedit-actiontable .save input {
-	margin: 10px 0px 0px 0px;
-	border: 1px solid #333333;
-	width: 180px;
-	background-color: #ff0000;
-	color: white;
-	font-weight: bold;
-}
-table.kb_imageedit-actiontable .input input.number {
-	border: 1px solid #333333;
-	width: 120px;
-}
-table.kb_imageedit-actiontable .input input.string {
-	border: 1px solid #333333;
-	width: 180px;
-}
-		';
+				// Load CSS from external file
+			$CSS_file = t3lib_div::getFileAbsFileName('EXT:kb_imageedit/res/image_edit.css');
+			$CSS = t3lib_div::getURL($CSS_file);
+			$this->doc->inDocStyles = $CSS;
 
 			$filename = basename($this->absoluteFile);
 			$headerSection = $this->doc->getHeader('files', 0, $filename);
@@ -604,13 +559,13 @@ table.kb_imageedit-actiontable .input input.string {
 					// Set docType after start page cause we need to set our own <?xml...> tag (with SVG support included)
 				header ('Content-Type:application/xhtml+xml;charset='.$this->charset);
 				$this->doc->docType = 'xhtml_trans';
-				$parts = explode(chr(10), $this->content, 3);
-				$header = preg_replace('/<link\s+rel="stylesheet"([^>]*)href="([^"]*)\/typo3\/stylesheet.css"([^>])\/>/', '<link rel="stylesheet" href="../res/stylesheet.css" type="text/css" id="basicStyle" />', $parts[2]);
+				$parts = explode(chr(10), $this->content, 5);
+				$header = preg_replace('/<link\s+rel="stylesheet"([^>]*)href="([^"]*)\/typo3\/stylesheet.css"([^>])\/>/', '<link rel="stylesheet" href="../res/stylesheet.css" type="text/css" id="basicStyle" />', $parts[4]);
 				$header = preg_replace('/<meta\s+http-equiv="Content-Type"\scontent="text\/html([^"]*)"([^>]*)\/>/', '<meta http-eqiv="Content-Type" content="application/xhtml+xml$1"$2 />', $header);
 				$this->content = '<?xml version="1.0" encoding="'.$this->doc->charset.'"?>
 <!DOCTYPE html
-	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg">'.$header;
 			}
 
@@ -636,18 +591,18 @@ table.kb_imageedit-actiontable .input input.string {
 			$this->content.=$this->doc->spacer(5);
 			$this->content.=$this->doc->section('',$this->doc->funcMenu($headerSection,t3lib_BEfunc::getFuncMenu($this->id,'SET[function]',$this->MOD_SETTINGS['function'],$this->MOD_MENU['function'])));
 			$this->content.=$this->doc->divider(5);
-				
+
 			$this->content.=$this->doc->section('No access !', 'You don\'t have permissions to access the file \''.$file.'\' !',0,1);
 
 		}
 		$this->content.=$this->doc->spacer(10);
 		$this->content = str_replace('###ON_LOAD_EVENT###', '', $this->content);
 	}
-	
+
 	/**
 	 * Sets and returns an element in a file history tree
 	 *
-	 * @param	array			The current file history tree (reference)
+	 * @param	array		The current file history tree (reference)
 	 * @param	string		The current path
 	 * @param	string		The file beign set in the tree
 	 * @param	booelan		Whether the file was saved or not
@@ -691,7 +646,7 @@ table.kb_imageedit-actiontable .input input.string {
 		$this->content = str_replace('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', $this->content);
 		echo $this->content;
 	}
-				
+
 	/**
 	 * Returns the name of a file from the history file tree by specifying its path
 	 *
@@ -740,7 +695,7 @@ table.kb_imageedit-actiontable .input input.string {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Returns the "Image Info" Tab of the image editors DynTab menu
 	 *
@@ -753,7 +708,7 @@ table.kb_imageedit-actiontable .input input.string {
 		$HTML .= '<table cellspacing="0" cellpadding="0" border="0" class="kb_imageedit-actiontable">
 				<tr>
 					<td class="label">
-						Filename : 
+						Filename :
 					</td>
 					<td class="value">
 						'.$this->baseFile.'
@@ -761,7 +716,7 @@ table.kb_imageedit-actiontable .input input.string {
 				</tr>
 				<tr>
 					<td class="label">
-						Image-Size : 
+						Image-Size :
 					</td>
 					<td class="value">
 						'.$this->x.' x '.$this->y.' Pixels
@@ -769,7 +724,7 @@ table.kb_imageedit-actiontable .input input.string {
 				</tr>
 				<tr>
 					<td class="label">
-						Format : 
+						Format :
 					</td>
 					<td class="value">
 						'.$this->format.'
@@ -936,7 +891,7 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td colspan="4" class="label">
-							'.$LANG->getLL('action_label_'.$cmd).' : 
+							'.$LANG->getLL('action_label_'.$cmd).' :
 							<input type="hidden" name="action" value="'.$cmd.'" />
 						</td>
 					</tr>';
@@ -960,7 +915,7 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							'.$LANG->getLL('action_label_'.$cmd).' : 
+							'.$LANG->getLL('action_label_'.$cmd).' :
 						</td>
 						<td class="input">
 							<input type="text" name="factor" value="0" class="number" />
@@ -989,14 +944,14 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							'.$LANG->getLL('action_label_'.$cmd).' : 
+							'.$LANG->getLL('action_label_'.$cmd).' :
 						</td>
 						<td class="input">
 							<input type="text" name="factor" value="0" class="number" />
 							<input type="hidden" name="action" value="'.$cmd.'" />
 						</td>
 						<td class="label">
-							'.$LANG->getLL('action_label2_'.$cmd).' : 
+							'.$LANG->getLL('action_label2_'.$cmd).' :
 						</td>
 						<td class="input">
 							<input type="text" name="factor2" value="0" class="number" />
@@ -1004,7 +959,7 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>';
 		return $HTML;
 	}
-	
+
 	/**
 	 * This methods renders the interface for the effect/command "rotate"
 	 *
@@ -1015,241 +970,24 @@ var actualYsize = '.$this->zoom_y.';
 		global $LANG;
 		$this->content = str_replace('###ON_LOAD_EVENT###', ' onload="windowLoad();" ', $this->content);
 		$HTML = str_replace('###IMG_EXTRA###', '<svg:rect id="kb_imageedit-svgbg" width="'.$this->zoom_x.'" height="'.$this->zoom_y.'" fill="rgb(0,0,0)" fill-opacity="1" />', $HTML);
+		$replace = array(
+			'###ZOOM_X###' => $this->zoom_x,
+			'###ZOOM_Y###' => $this->zoom_y,
+			'###ZOOM_X_2###' => intval(round($this->zoom_x/2)),
+			'###ZOOM_Y_2###' => intval(round($this->zoom_y/2)),
+			'###SETTINGS_ROTATE###' => $this->MOD_SETTINGS['rotate']=='custom'?'':'rotate_to('.$this->MOD_SETTINGS['rotate'].');',
+			'###USE_AJAX###' => $this->ajax?1:0,
+			'###AJAX_CODE###' => $this->ajax?t3lib_ajax::getJScode('updateImage', '', 0):'',
+			'###AJAX_LINK###' => t3lib_div::linkThisScript(array('p' => 'rotate')),
+		);
 		if ($this->useSVG&&$this->SVGsupport)	{
-			$HTML .= $this->doc->wrapScriptTags('
-	// Variables
-var sensitivity = 0.5;
-var angle = 0;
-
-	// Rotation via 2D-matrix transformation
-function rotate_point(point, angle)	{
-	var angle = angle * Math.PI / 180.0;
-	var nx = point[0]*Math.cos(angle)-point[1]*Math.sin(angle);
-	var ny = point[0]*Math.sin(angle)+point[1]*Math.cos(angle);
-	return Array(nx, ny);
-}
-
-
-function rotate_points(points, center, angle)	{
-	var h = Array.concat(points);
-	for (var i in h)	{
-		h[i][0] -= center[0];
-		h[i][1] -= center[1];
-		h[i] = rotate_point(h[i], angle);
-		h[i][0] += center[0];
-		h[i][1] += center[1];
-	}
-	return h;
-}
-
-function get_size(rota)	{
-	var xmin = 1000000;
-	var xmax = -1000000;
-	var ymin = 1000000;
-	var ymax = -1000000;
-	for (var i in rota)	{
-		if (rota[i][0] < xmin)	{
-			xmin = rota[i][0];
-		}
-		if (rota[i][0] > xmax)	{
-			xmax = rota[i][0];
-		}
-		if (rota[i][1] < ymin)	{
-			ymin = rota[i][1];
-		}
-		if (rota[i][1] > ymax)	{
-			ymax = rota[i][1];
-		}
-	}
-	var xs = xmax-xmin;
-	var ys = ymax-ymin;
-	return Array(xs, ys);
-}
-function rotate_to(angle)	{
-	angle = parseInt(angle);
-	if (isNaN(angle))	{
-		angle = 0;
-	}
-	var corners = Array(
-		Array(0, 0),
-		Array('.$this->zoom_x.', 0),
-		Array('.$this->zoom_x.', '.$this->zoom_y.'),
-		Array(0, '.$this->zoom_y.')
-	);
-	var im = document.getElementById("kb_imageedit-svgimg");
-	var sv = document.getElementById("kb_imageedit-svgtag");
-	var svbg = document.getElementById("kb_imageedit-svgbg");
-	var cont = document.getElementById("kb_imageedit-mainimage");
-	var rota = rotate_points(corners, Array('.intval(round($this->zoom_x/2)).', '.intval(round($this->zoom_y/2)).'), -angle);
-	var size = get_size(rota);
-	cont.style.width = Math.round(size[0])+"px";
-	cont.style.height = Math.round(size[1])+"px";
-	sv.setAttribute("width", Math.round(size[0])+"px");
-	sv.setAttribute("height", Math.round(size[1])+"px");
-	var xos = (size[0]-'.$this->zoom_x.')/2;
-	var yos = (size[1]-'.$this->zoom_y.')/2;
-	im.setAttribute("transform", "translate("+xos+", "+yos+") rotate("+angle+", '.intval(round($this->zoom_x/2)).', '.intval(round($this->zoom_y/2)).')");
-	svbg.setAttribute("width", size[0]+"px");
-	svbg.setAttribute("height", size[1]+"px");
-}
-
-var drag = false;
-var dragx = 0;
-var dragy = 0;
-var xmove = 0;
-var ymove = 0;
-
-function mouse_down(ev)	{
-	if ((ev.type=="mousedown")&&(ev.which==1))	{		// Left mouse click
-		var cont = document.getElementById("kb_imageedit-mainimage");
-		drag = true;
-		dragx = ev.pageX;
-		dragy = ev.pageY;
-		cx = dragx-cont.offsetLeft;
-		cy = dragy-cont.offsetTop;
-		if (cx<(cont.offsetWidth/2))	{
-			ymove = -1;
+			$JS_file = t3lib_div::getFileAbsFileName('EXT:kb_imageedit/res/image_edit_rotate_SVG.js');
 		} else	{
-			ymove = 1;
+			$JS_file = t3lib_div::getFileAbsFileName('EXT:kb_imageedit/res/image_edit_rotate.js');
 		}
-		if (cy<(cont.offsetHeight/2))	{
-			xmove = 1;
-		} else	{
-			xmove = -1;
-		}
-	}
-}
-
-function mouse_move(ev)	{
-	if (drag)	{
-		var diffx = xmove*(ev.pageX-dragx)*sensitivity;
-		var diffy = ymove*(ev.pageY-dragy)*sensitivity;
-		rotate_to(angle+diffx+diffy);
-		var a = angle+diffx;
-		while (a >= 360)	{
-			a -= 360;
-		}
-		while (a < 0)	{
-			a += 360;
-		}
-		document.forms[0]["angle"].value = a;
-	}
-}
-
-function mouse_up(ev)	{
-	if (drag)	{
-		var diffx = xmove*(ev.pageX-dragx)*sensitivity;
-		var diffy = ymove*(ev.pageY-dragy)*sensitivity;
-		angle += diffx + diffy;
-		rotate_to(angle);
-		document.forms[0]["angle"].value = angle;
-		drag = false;
-		dragx = 0;
-		dragy = 0;
-	}
-}
-
-function update_bg()	{
-	var svgbg = document.getElementById("kb_imageedit-svgbg");
-	var col_r = parseInt(document.forms[0]["back_red"].value);
-	var col_g = parseInt(document.forms[0]["back_green"].value);
-	var col_b = parseInt(document.forms[0]["back_blue"].value);
-	var col_a = parseInt(document.forms[0]["back_alpha"].value);
-	if (isNaN(col_r) || col_r<0 || col_r>255)	{
-		col_r = 0;
-	}
-	if (isNaN(col_g) || col_g<0 || col_g>255)	{
-		col_g = 0;
-	}
-	if (isNaN(col_b) || col_b<0 || col_b>255)	{
-		col_b = 0;
-	}
-	if (isNaN(col_a) || col_a<0 || col_a>255)	{
-		col_a = 0;
-	}
-	svgbg.setAttribute("fill", "rgb("+col_r+","+col_g+","+col_b+")");
-	svgbg.setAttribute("fill-opacity", 1-(col_a/255));
-}
-
-	function initRotate()	{
-		var svgimg = document.getElementById("kb_imageedit-svgimg");
-		svgimg.onmousedown = mouse_down;
-		window.onmousemove= mouse_move;
-		window.onmouseup= mouse_up;
-		'.($this->MOD_SETTINGS['rotate']=='custom'?'':'
-		rotate_to('.$this->MOD_SETTINGS['rotate'].');
-		').'
-	}
-');
-		} else	{
-			$HTML .= $this->doc->wrapScriptTags('
-var reqCnt = 0;
-function rotate_to(angle)	{
-	reqCnt++;
-	'.($this->ajax?'
-	var col_r = parseInt(document.forms[0]["back_red"].value);
-	var col_g = parseInt(document.forms[0]["back_green"].value);
-	var col_b = parseInt(document.forms[0]["back_blue"].value);
-	var col_a = parseInt(document.forms[0]["back_alpha"].value);
-	if (isNaN(col_r) || col_r<0 || col_r>255)	{
-		col_r = 0;
-	}
-	if (isNaN(col_g) || col_g<0 || col_g>255)	{
-		col_g = 0;
-	}
-	if (isNaN(col_b) || col_b<0 || col_b>255)	{
-		col_b = 0;
-	}
-	if (isNaN(col_a) || col_a<0 || col_a>255)	{
-		col_a = 0;
-	}
-	ajax_doRequest("'.t3lib_div::linkThisScript(array('p' => 'rotate')).'&a="+angle+"&c="+reqCnt+"&back_red="+col_r+"&back_green="+col_g+"&back_blue="+col_b+"&back_alpha="+col_a);
-	':'').'
-}
-
-	function update_bg()	{
-		rotate_to(document.forms[0]["angle"].value);
-	}
-
-	function getTagValue(result, tag)	{
-		var tagsAr = result.getElementsByTagName(tag);
-		var tagObj = tagsAr[0];
-		if (tagObj)	{
-			return tagObj.textContent;
-		}
-		return "";
-	}
-
-	var recvCnt = -1;
-
-	function updateImage(result)	{
-		var file = getTagValue(result, "file");
-		var count = parseInt(getTagValue(result, "count"));
-		var width = getTagValue(result, "width");
-		var height = getTagValue(result, "height");
-		var orig_width = getTagValue(result, "orig_width");
-		var orig_height = getTagValue(result, "orig_height");
-		if (count>recvCnt)	{
-			var img = document.getElementById("kb_imageedit-imageself");
-			var cont = document.getElementById("kb_imageedit-mainimage");
-			img.src = file;
-			img.style.width = width+"px";
-			img.style.height = height+"px";
-			cont.style.width = width+"px";
-			cont.style.height = height+"px";
-			recvCnt = count;
-		}
-	}
-
-	
-	function initRotate()	{
-		'.($this->MOD_SETTINGS['rotate']=='custom'?'':'
-		rotate_to('.$this->MOD_SETTINGS['rotate'].');
-		').'
-	}
-	'.($this->ajax?t3lib_ajax::getJScode('updateImage', '', 0):'').'
-');
-		}
+		$JS = t3lib_div::getURL($JS_file);
+		$JS = str_replace(array_keys($replace), array_values($replace), $JS);
+		$HTML .= $this->doc->wrapScriptTags($JS);
 		$this->content = str_replace('//###ADD_ONLOAD###', 'initRotate();'.chr(10).'//###ADD_ONLOAD###', $this->content);
 		$HTML .= '<tr>
 						<td colspan="4">
@@ -1258,7 +996,7 @@ function rotate_to(angle)	{
 					</tr>
 					<tr>
 						<td class="label">
-							Rotate presets : 
+							Rotate presets :
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[rotate]',$this->MOD_SETTINGS['rotate'],$this->MOD_MENU['rotate']).'
@@ -1383,7 +1121,7 @@ function rotate_to(angle)	{
 	 * @param	string		The current HTML code
 	 * @return	string		The rendered interface
 	 */
-	function render__file_save($HTML)	{
+	protected function render__file_save($HTML)	{
 		global $LANG;
 		$HTML = str_replace('###IMG_EXTRA###', '', $HTML);
 		$newname = $this->filefunc->getUniqueName(basename($this->sessionData['startFile']), dirname($this->sessionData['startFile']));
@@ -1395,13 +1133,13 @@ function rotate_to(angle)	{
 					</tr>
 					<tr>
 						<td class="label">
-							Filename : 
+							Filename :
 						</td>
 						<td class="input">
 							<input type="text" name="filename" value="'.$newname.'" class="string" />
 						</td>
 						<td class="label">
-							Overwrite : 
+							Overwrite :
 						</td>
 						<td class="input">
 							<input type="checkbox" name="overwrite" value="1" />
@@ -1424,11 +1162,11 @@ function rotate_to(angle)	{
 	 */
 	protected function render__edit_crop($HTML)	{
 		global $LANG;
-		$this->content = str_replace('//###INIT_CODE###', ' 
+		$this->content = str_replace('//###INIT_CODE###', '
 //###INIT_CODE###
 var oldDTM_toggle_Func = DTM_toggle;
 var DHTML_initialized = false;
-function newDTM_toggle(idBase, index, isInit)	{
+func'.'tion newDTM_toggle(idBase, index, isInit)	{
 	oldDTM_toggle_Func(idBase, index, isInit);
 	if (index==2)	{
 		if (document.getElementById(idBase+"-"+index+"-DIV"))	{
@@ -1459,130 +1197,25 @@ DTM_toggle = newDTM_toggle;
 		$this->endDHTML = $this->doc->wrapScriptTags('
 SET_DHTML(CURSOR_MOVE, RESIZABLE);
 			');
-					
+
 		$HTML = str_replace('###IMG_EXTRA###', $img_extra, $HTML);
-		$HTML .= $this->doc->wrapScriptTags('
-
-function dblClick() {
-	document.kb_imageedit_form.submit();
-}
-
-function my_DragFunc()
-{
-	if (zoomLevel==100)	{
-		document.kb_imageedit_form.offsetx.value = dd.obj.x-dd.obj.defx;
-		document.kb_imageedit_form.offsety.value = dd.obj.y-dd.obj.defy;
-	} else	{
-		document.kb_imageedit_form.offsetx.value = Math.round((dd.obj.x-dd.obj.defx)/(zoomLevel/100));
-		document.kb_imageedit_form.offsety.value = Math.round((dd.obj.y-dd.obj.defy)/(zoomLevel/100));
-	}
-	dd.obj.maxw = actualXsize -(dd.obj.x-dd.obj.defx);
-	dd.obj.maxh = actualYsize -(dd.obj.y-dd.obj.defy);
-}
-function my_ResizeFunc()
-{
-	if (zoomLevel==100)	{
-		document.kb_imageedit_form.width.value = dd.obj.w;
-		document.kb_imageedit_form.height.value = dd.obj.h;
-	} else	{
-		document.kb_imageedit_form.width.value = Math.round(dd.obj.w / (zoomLevel/100));
-		document.kb_imageedit_form.height.value = Math.round(dd.obj.h / (zoomLevel/100));
-	}
-	dd.obj.maxoffr = actualXsize-dd.obj.w;
-	dd.obj.maxoffb = actualYsize-dd.obj.h;
-}
 
 
-function redraw_div(dimension)	{
-	var x = parseInt(document.kb_imageedit_form.offsetx.value);
-	var y = parseInt(document.kb_imageedit_form.offsety.value);
-	var w = parseInt(document.kb_imageedit_form.width.value);
-	var h = parseInt(document.kb_imageedit_form.height.value);
-	var div = dd.elements["cropdiv"];
-	
-	if (zoomLevel!=100)	{
-		x = Math.floor(x*zoomLevel/100);
-		y = Math.floor(y*zoomLevel/100);
-		w = Math.ceil(w*zoomLevel/100);
-		h = Math.ceil(h*zoomLevel/100);
-	}
-	
-	if (isNaN(x))	{
-		x = 0;
-	}
-	if (isNaN(y))	{
-		y = 0;
-	}
-	if (isNaN(w))	{
-		w = '.intval($this->x/2).';
-	}
-	if (isNaN(h))	{
-		h = '.intval($this->y/2).';
-	}
-	
-	if(x<0) x=0;
-	if(y<0) y=0;
-	if(w < div.minw) w = div.minw;
-	if(h < div.minh) h = div.minh;
-	
-	//x or y is grater than the image
-	if(x >= '.$this->zoom_x.' - div.minw ) { x = '.$this->zoom_x.' - div.minw;  }
-	if(y >= '.$this->zoom_y.' - div.minh ) { y = '.$this->zoom_y.' - div.minh; }
-	
-	if(dimension == "x"){
-	/* the x parameter was changed, so we respect that and change the width */
-		if (x > ('.$this->zoom_x.'-w))	{
-			w = '.$this->zoom_x.'-x;
-		}
-	}else 
-		if(dimension == "y"){
-			
-			if (y > ('.$this->zoom_y.'-h) )	{
-				h = '.$this->zoom_y.'-y;
-	}
-	}else 
-		if(dimension == "w"){
-			if (w > '.$this->zoom_x.'){
-			w = '.$this->zoom_x.';
-			x=0;
-			}else
-			if (w > ('.$this->zoom_x.'-x))	{
-			x = '.$this->zoom_x.'-w;
-			}
-			if(w == '.$this->zoom_x.')
-			x=0;
-			
-	}else 
-		if(dimension == "h"){
-		if (h > '.$this->zoom_y.'){
-			h = '.$this->zoom_y.';
-			y=0;
-			}else
-		if (h > ('.$this->zoom_y.'-y))	{
-		y = '.$this->zoom_y.'-h;
-		}
-		if(h == '.$this->zoom_y.')
-			y=0;
-	}else  { document.write("wrong parameter! in redraw_div");
-		return false;
-		}
-		
-		if((x+w) > '.$this->zoom_x.') x= '.$this->zoom_x.' -w;
-		if((y+h) > '.$this->zoom_y.') x= '.$this->zoom_y.' -h;
-		
-	document.kb_imageedit_form.offsetx.value = Math.round(x/(zoomLevel/100));
-	document.kb_imageedit_form.offsety.value = Math.round(y/(zoomLevel/100));
-	document.kb_imageedit_form.width.value = Math.round(w/(zoomLevel/100));
-	document.kb_imageedit_form.height.value = Math.round(h/(zoomLevel/100));
-		
-	dd.elements["cropdiv"].moveTo(x+dd.elements["cropdiv"].defx, y+dd.elements["cropdiv"].defy);
-	dd.elements["cropdiv"].resizeTo(w, h);
-	div.maxoffr = actualXsize-div.w;
-	div.maxoffb = actualYsize-div.h;
-	
-	return true;
-}
-					');
+			// Load JS from external JS file
+		$replace = array(
+			'###X_2###' => intval($this->x/2),
+			'###Y_2###' => intval($this->y/2),
+			'###ZOOM_X###' => $this->zoom_x,
+			'###ZOOM_Y###' => $this->zoom_y,
+			'###ZOOM_X_2###' => intval(round($this->zoom_x/2)),
+			'###ZOOM_Y_2###' => intval(round($this->zoom_y/2)),
+		);
+		$JS_file = t3lib_div::getFileAbsFileName('EXT:kb_imageedit/res/image_edit_crop.js');
+		$JS = t3lib_div::getURL($JS_file);
+		$JS = str_replace(array_keys($replace), array_values($replace), $JS);
+		$HTML .= $this->doc->wrapScriptTags($JS);
+
+
 		$HTML .= '<tr>
 						<td colspan="4">
 							<h3>'.$LANG->getLL('action_edit_crop').'</h3>
@@ -1590,7 +1223,7 @@ function redraw_div(dimension)	{
 					</tr>
 					<tr>
 						<td class="label">
-							Crop presets : 
+							Crop presets :
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[cropFrames]',$this->MOD_SETTINGS['cropFrames'],$this->MOD_MENU['cropFrames']).'
@@ -1598,7 +1231,7 @@ function redraw_div(dimension)	{
 					</tr>
 					<tr>
 						<td class="label">
-							Border color : 
+							Border color :
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[edit_crop_bordercolor]',$this->MOD_SETTINGS['edit_crop_bordercolor'],$this->MOD_MENU['edit_crop_bordercolor']).'
@@ -1606,13 +1239,13 @@ function redraw_div(dimension)	{
 					</tr>
 					<tr>
 						<td class="label">
-							Offset X : 
+							Offset X :
 						</td>
 						<td class="input">
 							<input type="text" name="offsetx" value="0" class="number" onChange="return redraw_div(\'x\')" />
 						</td>
 						<td class="label">
-							Offset Y : 
+							Offset Y :
 						</td>
 						<td class="input">
 							<input type="text" name="offsety" value="0" class="number" onChange="return redraw_div(\'y\');" />
@@ -1620,13 +1253,13 @@ function redraw_div(dimension)	{
 					</tr>
 					<tr>
 						<td class="label">
-							Width : 
+							Width :
 						</td>
 						<td class="input">
 							<input type="text" name="width" value="'.$this->cropFrameX.'" class="number" onChange="return redraw_div(\'w\');" />
 						</td>
 						<td class="label">
-							Height : 
+							Height :
 							</td>
 						<td class="input">
 							<input type="text" name="height" value="'.$this->cropFrameY.'" class="number" onChange="return redraw_div(\'h\');" />
@@ -1654,7 +1287,7 @@ SET_DHTML(CURSOR_MOVE);
 //###INIT_CODE###
 var oldDTM_toggle_Func = DTM_toggle;
 var DHTML_initialized = false;
-function newDTM_toggle(idBase, index, isInit)	{
+func'.'tion newDTM_toggle(idBase, index, isInit)	{
 	oldDTM_toggle_Func(idBase, index, isInit);
 	if (index==2)	{
 		if (document.getElementById(idBase+"-"+index+"-DIV"))	{
@@ -1704,7 +1337,7 @@ DTM_toggle = newDTM_toggle;
 		$this->content = str_replace('/*###CSS_EXTRA###*/', $css_extra.chr(10).'/*###CSS_EXTRA###*/', $this->content);
 		$HTML .= $this->doc->wrapScriptTags('
 
-function my_DragFunc()
+func'.'tion my_DragFunc()
 {
 	if (!dd.obj.defx_orig)	{
 		dd.obj.defx_orig = dd.obj.defx;
@@ -1751,7 +1384,7 @@ function my_DragFunc()
 var img_x = '.$this->zoom_x.';
 var img_y = '.$this->zoom_y.';
 
-function redraw_knobs()	{
+func'.'tion redraw_knobs()	{
 	var img = document.getElementById("kb_imageedit-imageself");
 	var xdiff = img_x-'.$this->zoom_x.';
 	var ydiff = img_y-'.$this->zoom_y.';
@@ -1792,7 +1425,7 @@ function redraw_knobs()	{
 }
 
 
-function rescale(changed, x, y)	{
+func'.'tion rescale(changed, x, y)	{
 	var img = document.getElementById("kb_imageedit-imageself");
 	var cont = document.getElementById("kb_imageedit-mainimage");
 	if (x)	{
@@ -1873,7 +1506,7 @@ function rescale(changed, x, y)	{
 }
 
 '.(($this->scale_x||$this->scale_y)?'
-function windowLoad()	{
+func'.'tion windowLoad()	{
 	'.($this->aspect?'
 	document.kb_imageedit_form.ratio.checked = true;
 	':'').'
@@ -1892,7 +1525,7 @@ function windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-							Scale presets: 
+							Scale presets:
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[scaleFrames]',$this->MOD_SETTINGS['scaleFrames'],$this->MOD_MENU['scaleFrames']).'
@@ -1900,13 +1533,13 @@ function windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-							New width: 
+							New width:
 						</td>
 						<td class="input">
 							<input type="text" name="width" value="'.$this->x.'" class="number" onchange="return rescale(\'x\');" />
 						</td>
 						<td class="label">
-							New height: 
+							New height:
 						</td>
 						<td class="input">
 							<input type="text" name="height" value="'.$this->y.'" class="number" onchange="return rescale(\'y\');" />
@@ -1923,7 +1556,7 @@ function windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-							Knob color : 
+							Knob color :
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[edit_crop_bordercolor]',$this->MOD_SETTINGS['edit_crop_bordercolor'],$this->MOD_MENU['edit_crop_bordercolor']).'
@@ -1967,7 +1600,7 @@ function windowLoad()	{
 			'stateIcon' => 2,
 		);
 	}
-			
+
 	/**
 	 * This methods performs effects which do not need any parameter ("none") and stores the result in the result tree
 	 *
@@ -2033,7 +1666,7 @@ function windowLoad()	{
 		$this->stdGraphic->imageMagickExec($image,$newname,$command);
 		$this->storeImage_File($newname, $cmd);
 	}
-	
+
 	/**
 	 * This methods performs effects which need two parameters ("double") and stores the result in the result tree
 	 *
@@ -2188,7 +1821,7 @@ function windowLoad()	{
 		imagecopyresized($im, $src, 0, 0, $offsetx, $offsety, $width, $height, $width, $height);
 		$this->storeImage_Object($im, $image, 'edit_crop');
 	}
-	
+
 	/**
 	 * This methods performs the "scale" operation and stores the result
 	 *
@@ -2216,7 +1849,7 @@ function windowLoad()	{
 	 * This methods returns the number of colors in an indexed-color file, or "true" for truecolor files ;)
 	 *
 	 * @param	string		The image to identify
-	 * @return	mixed			Either the size of the indexed-color palette or "true" for truecolor (24 bit) images
+	 * @return	mixed		Either the size of the indexed-color palette or "true" for truecolor (24 bit) images
 	 */
 	protected function identifyColors($file)	{
 		if (!$this->stdGraphic->NO_IMAGE_MAGICK)	{
@@ -2234,7 +1867,7 @@ function windowLoad()	{
 				return intval($h2);
 			}
 			return 'true';
-		}	
+		}
 	}
 
 	/**
@@ -2282,7 +1915,7 @@ function windowLoad()	{
 	/**
 	 * This method stores the passed image filename in the history tree
 	 *
-	 * @param	string 		The name of the file to store in the history tree
+	 * @param	string		The name of the file to store in the history tree
 	 * @param	string		The action which was performed. This information will get added to the history tree
 	 * @return	void
 	 */

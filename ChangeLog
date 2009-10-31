@@ -1,5 +1,9 @@
 2009-10-31  Bernhard Kraft  <kraftb@think-open.at>
 
+	* Moved some JS and CSS code into external files (cleanups)
+
+2009-10-31  Bernhard Kraft  <kraftb@think-open.at>
+
 	* Changed LocalLang-Labels to XML style
 	* Added source-code documentation for every method
 	* Added public/protected/private visibility declarations to each method

@@ -28,34 +28,42 @@
  */
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
+ *
+ *
+ *
+ *   42: class tx_kbimageedit_cm1
+ *   54:     public function main(&$backRef,$menuItems,$table,$uid)
+ *   90:     protected function includeLL()
+ *
+ * TOTAL FUNCTIONS: 2
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
  */
-
-
 class tx_kbimageedit_cm1 {
 
 
 	/**
 	 * The clickmenu method. This method adds the new menu-item for the image editor to the clickmenu
 	 *
-	 * @param	object	A reference to the calling object
+	 * @param	object		A reference to the calling object
 	 * @param	array		The current list of menu items
-	 * @param	string	The current table. As this is a filelist-clickmenu this parameter contains the absolute path of the clicked file
-	 * @param	integer	The current uid. As this is a filelist-clickmenu this parameter is empty
+	 * @param	string		The current table. As this is a filelist-clickmenu this parameter contains the absolute path of the clicked file
+	 * @param	integer		The current uid. As this is a filelist-clickmenu this parameter is empty
 	 * @return	array		The list of menu items with the new option for the image editor
 	 */
 	public function main(&$backRef,$menuItems,$table,$uid) {
 		global $BE_USER,$TCA,$LANG;
-	
+
 		$localItems = Array();
 		if (!$backRef->cmLevel) {
-			
+
 				// Returns directly, because the clicked item was not a file
 			if (!is_file($table))	return $menuItems;
 				// Returns directly if the extension is no supported image file
 			$parts = explode('.', $table);
 			$ext = strtolower(array_pop($parts));
 			if ($ext!='jpg'&&$ext!='jpeg'&&$ext!='png'&&$ext!='gif')	return $menuItems;
-			
+
 				// Adds the regular item:
 			$this->includeLL();
 				// Repeat this (below) for as many items you want to add!
@@ -67,13 +75,13 @@ class tx_kbimageedit_cm1 {
 				$backRef->urlRefForCM($url),
 				1	// Disables the item in the top-bar. Set this to zero if you with the item to appear in the top bar!
 			);
-			
+
 			// Simply merges the two arrays together and returns ...
 			$menuItems=array_merge($menuItems,$localItems);
 		}
 		return $menuItems;
 	}
-	
+
 	/**
 	 * Includes the [extDir]/locallang.xml for usage in this module
 	 *

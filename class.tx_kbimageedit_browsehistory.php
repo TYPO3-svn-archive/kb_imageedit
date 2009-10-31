@@ -30,6 +30,20 @@
  */
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
+ *
+ *
+ *
+ *   53: class tx_kbimageedit_browseHistory extends t3lib_treeView
+ *   60:     public function tx_kbimageedit_browseHistory()
+ *   73:     public function init($parent)
+ *   87:     public function getIcon($row)
+ *  100:     public function getRootIcon($rec)
+ *  110:     public function getRootRecord($uid)
+ *  127:     public function wrapTitle($title,$row,$bank=0)
+ *
+ * TOTAL FUNCTIONS: 6
+ * (This index is automatically created/updated by the extension "extdeveval")
+ *
  */
 
 
@@ -37,7 +51,7 @@ require_once (PATH_t3lib.'class.t3lib_treeview.php');
 
 
 class tx_kbimageedit_browseHistory extends t3lib_treeView {
-	
+
 	/**
 	 * Constructor. This method initializes the object
 	 *
@@ -53,7 +67,7 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	/**
 	 * This "init" method is called by the parent object
 	 *
-	 * @param	object	A reference to the parent object
+	 * @param	object		A reference to the parent object
 	 * @return	void
 	 */
 	public function init($parent)	{
@@ -67,16 +81,16 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	 * Get icon for the row.
 	 * If $this->iconPath and $this->iconName is set, try to get icon based on those values.
 	 *
-	 * @param	array			Item row
+	 * @param	array		Item row
 	 * @return	string		Image tag
 	 */
 	public function getIcon($row) {
 		if ($this->iconPath) {
 			$icon = '<img'.t3lib_iconWorks::skinImg($this->backPath, $this->iconPath.$row['icon'],'width="18" height="16"').' alt="" />';
-		} 
+		}
 		return $this->wrapIcon($icon,$row);
 	}
-	
+
 	/**
 	 * Returns the root icon for a tree/mountpoint (defaults to the globe)
 	 *
@@ -86,7 +100,7 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	public function getRootIcon($rec) {
 		return $this->wrapIcon('<img'.t3lib_iconWorks::skinImg($this->backPath,'gfx/fileicons/'.$rec['icon'],'width="18" height="16"').' alt="" />',$rec);
 	}
-	
+
 	/**
 	 * Returns root record for uid (<=0)
 	 *
@@ -105,10 +119,10 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	/**
 	 * Wraps the passed title with a link
 	 *
-	 * @param	string	The title around which to wrap a link
+	 * @param	string		The title around which to wrap a link
 	 * @param	array		The current database row
-	 * @param	integer	bank
-	 * @return	string	The wrapped title
+	 * @param	integer		bank
+	 * @return	string		The wrapped title
 	 */
 	public function wrapTitle($title,$row,$bank=0)	{
 		return '<a href="index.php?revert='.rawurlencode($row['path']).'">'.$title.'</a>';
