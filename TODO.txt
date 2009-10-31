@@ -4,3 +4,4 @@ define('ACTION_EFFECT_SHEAR', 'effect_shear');				// TODO: SVG
 define('ACTION_DRAW_RECTANGLE', 'draw_rectangle');		// TODO: SVG
 define('ACTION_DRAW_CIRCLE', 'draw_circle');					// TODO: SVG
 
+Check SVG capabilities of other browsers and fix method "checkSVGsupport" in cm1/index.php

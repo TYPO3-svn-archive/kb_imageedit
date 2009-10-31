@@ -1,5 +1,18 @@
-(add new changes on top of this file)
+2009-10-31  Bernhard Kraft  <kraftb@think-open.at>
 
-05-06-16 Bernhard Kraft  <kraftb@kraftb.at>
+	* Changed LocalLang-Labels to XML style
+	* Added source-code documentation for every method
+	* Added public/protected/private visibility declarations to each method
+	* Removed unnecessary "wizard_form.dat" and "wizard_form.html" files in "doc/" directory
+
+2009-10-30  Tymoteusz Motylewski <t.motylewski@gmail.com>
+
+	* Updated drag-drop library wz_dragdrop.js to the newest version (4.91)
+	* Edit boxes are now displaying zoom-independent dimensions (real image size) of a selection
+	* Resolved bug: cropdiv moves outside the image when width is set by hand
+	* min-width and min-height of the cropdiv is now set to 3px
+	* some minor problems with resizing/moving cropdiv by value in redraw_div()
+
+2005-06-16  Bernhard Kraft  <kraftb@kraftb.at>
 
 	* Initial release

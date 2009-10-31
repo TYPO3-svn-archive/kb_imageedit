@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004 Bernhard Kraft (kraftb@kraftb.at)
+*  (c) 2004-2009 Bernhard Kraft (kraftb@think-open.at)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -24,16 +24,30 @@
 /**
  * Addition of an item to the clickmenu
  *
- * @author	Bernhard Kraft <kraftb@kraftb.at>
+ * @author	Bernhard Kraft <kraftb@think-open.at>
+ */
+/**
+ * [CLASS/FUNCTION INDEX of SCRIPT]
  */
 
 
 class tx_kbimageedit_cm1 {
-	function main(&$backRef,$menuItems,$table,$uid)	{
+
+
+	/**
+	 * The clickmenu method. This method adds the new menu-item for the image editor to the clickmenu
+	 *
+	 * @param	object	A reference to the calling object
+	 * @param	array		The current list of menu items
+	 * @param	string	The current table. As this is a filelist-clickmenu this parameter contains the absolute path of the clicked file
+	 * @param	integer	The current uid. As this is a filelist-clickmenu this parameter is empty
+	 * @return	array		The list of menu items with the new option for the image editor
+	 */
+	public function main(&$backRef,$menuItems,$table,$uid) {
 		global $BE_USER,$TCA,$LANG;
 	
 		$localItems = Array();
-		if (!$backRef->cmLevel)	{
+		if (!$backRef->cmLevel) {
 			
 				// Returns directly, because the clicked item was not a file
 			if (!is_file($table))	return $menuItems;
@@ -43,14 +57,13 @@ class tx_kbimageedit_cm1 {
 			if ($ext!='jpg'&&$ext!='jpeg'&&$ext!='png'&&$ext!='gif')	return $menuItems;
 			
 				// Adds the regular item:
-			$LL = $this->includeLL();
-			
+			$this->includeLL();
 				// Repeat this (below) for as many items you want to add!
 				// Remember to add entries in the localconf.php file for additional titles.
-			$url = t3lib_extMgm::extRelPath("kb_imageedit")."cm1/index.php?file=".rawurlencode($table);
+			$url = t3lib_extMgm::extRelPath('kb_imageedit').'cm1/index.php?file='.rawurlencode($table);
 			$localItems[] = $backRef->linkItem(
-				$GLOBALS["LANG"]->getLLL("cm1_title",$LL),
-				$backRef->excludeIcon('<img src="'.t3lib_extMgm::extRelPath("kb_imageedit").'cm1/cm_icon.gif" width="15" height="12" border=0 align=top>'),
+				$GLOBALS['LANG']->getLL('cm1_title'),
+				$backRef->excludeIcon('<img src="'.t3lib_extMgm::extRelPath('kb_imageedit').'cm1/cm_icon.gif" width="15" height="12" border=0 align=top>'),
 				$backRef->urlRefForCM($url),
 				1	// Disables the item in the top-bar. Set this to zero if you with the item to appear in the top bar!
 			);
@@ -62,11 +75,13 @@ class tx_kbimageedit_cm1 {
 	}
 	
 	/**
-	 * Includes the [extDir]/locallang.php and returns the $LOCAL_LANG array found in that file.
+	 * Includes the [extDir]/locallang.xml for usage in this module
+	 *
+	 * @return	void
 	 */
-	function includeLL()	{
-		include(t3lib_extMgm::extPath('kb_imageedit').'locallang.php');
-		return $LOCAL_LANG;
+	protected function includeLL() {
+		global $LANG;
+		$LANG->includeLLFile('EXT:kb_imageedit/locallang.xml');
 	}
 }
 

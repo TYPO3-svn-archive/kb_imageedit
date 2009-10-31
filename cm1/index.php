@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004 Bernhard Kraft (kraftb@kraftb.at)
+*  (c) 2004-2009 Bernhard Kraft (kraftb@think-open.at)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -24,7 +24,10 @@
 /**
  * kb_imageedit module cm1
  *
- * @author	Bernhard Kraft <kraftb@kraftb.at>
+ * @author	Bernhard Kraft <kraftb@think-open.at>
+ */
+/**
+ * [CLASS/FUNCTION INDEX of SCRIPT]
  */
 
 // define actoin constants
@@ -82,8 +85,10 @@ class tx_kbimageedit_cm1 extends t3lib_SCbase {
 
 	/**
 	 * Adds items to the ->MOD_MENU array. Used for the function menu selector.
+	 *
+	 * @return	void
 	 */
-	function menuConfig()	{
+	public function menuConfig()	{
 		global $LANG;
 		$this->modTSconfig = t3lib_BEfunc::getModTSconfig($this->id,'mod.'.$this->MCONF['name']);
 		$this->MOD_MENU = Array (
@@ -263,8 +268,10 @@ class tx_kbimageedit_cm1 extends t3lib_SCbase {
 
 	/**
 	 * Main function of the module. Write the content to $this->content
+	 *
+	 * @return	void
 	 */
-	function main()	{
+	public function main()	{
 		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
 
 			// Draw the header.
@@ -637,7 +644,18 @@ table.kb_imageedit-actiontable .input input.string {
 		$this->content = str_replace('###ON_LOAD_EVENT###', '', $this->content);
 	}
 	
-	function getTreeEntry(&$arr, $actualPath, $file, $saved, $titleAdd, $pid)	{
+	/**
+	 * Sets and returns an element in a file history tree
+	 *
+	 * @param	array			The current file history tree (reference)
+	 * @param	string		The current path
+	 * @param	string		The file beign set in the tree
+	 * @param	booelan		Whether the file was saved or not
+	 * @param	string		The title which should get added
+	 * @param	integer		The pid/uid which should get set
+	 * @return	integer		The uid of the element being set
+	 */
+	protected function getTreeEntry(&$arr, $actualPath, $file, $saved, $titleAdd, $pid)	{
 		global $LANG;
 		$uid = hexdec(substr(md5($file),0, 6));
 		$parts = explode('.', $file);
@@ -661,14 +679,27 @@ table.kb_imageedit-actiontable .input input.string {
 		$arr[$uid] = array($file, $saved?1:0, $titleAdd, 'uid' => $uid, 'pid' => $pid, 'title' => basename($file).' ('.$titleText.')', 'icon' => $icon, 'path' => $actualPath.(strlen($actualPath)?'/':'').$uid);
 		return $uid;
 	}
-	function printContent()	{
+
+	/**
+	 * Prints out the finally rendered content
+	 *
+	 * @return	void
+	 */
+	public function printContent()	{
 		$this->content.=$this->doc->endPage();
 		$this->content = str_replace('</body>', $this->outOfContext.$this->endDHTML.chr(10).'</body>', $this->content);
 		$this->content = str_replace('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', $this->content);
 		echo $this->content;
 	}
 				
-	function &getFileFromPath($path, &$subtree)	{
+	/**
+	 * Returns the name of a file from the history file tree by specifying its path
+	 *
+	 * @param	array		The path to the requested item
+	 * @param	array		The tree from which to retrieve an item
+	 * @return	mixed		Either the name of the specified file in the path or "false" on error
+	 */
+	protected function &getFileFromPath($path, &$subtree)	{
 		$subtree_before = $subtree;
 		if ($subtree===false)	{
 			$subtree = &$this->sessionData['fileTree'];
@@ -691,7 +722,12 @@ table.kb_imageedit-actiontable .input input.string {
 		}
 	}
 
-	function moduleContent()	{
+	/**
+	 * This function switches the module functions depending on the selected function
+	 *
+	 * @return	void
+	 */
+	protected function moduleContent()	{
 		switch((string)$this->MOD_SETTINGS['function'])	{
 			case 1:
 				$content = '';
@@ -705,7 +741,12 @@ table.kb_imageedit-actiontable .input input.string {
 		}
 	}
 	
-	function getMenuItem_ImageInfo()	{
+	/**
+	 * Returns the "Image Info" Tab of the image editors DynTab menu
+	 *
+	 * @return	array		DynTab array entry
+	 */
+	protected function getMenuItem_ImageInfo()	{
 		global $LANG;
 		$HTML = '';
 		$HTML .= '<div class="kb_imageedit-dynTab">'.chr(10);
@@ -745,7 +786,12 @@ table.kb_imageedit-actiontable .input input.string {
 		);
 	}
 
-	function getMenuItem_ImageEdit()	{
+	/**
+	 * Returns the "Image Edit " Tab of the image editors DynTab menu
+	 *
+	 * @return	array		DynTab array entry
+	 */
+	protected function getMenuItem_ImageEdit()	{
 		global $LANG;
 		$HTML = '';
 		$HTML .= '<script language="javascript" type="text/javascript" src="../res/wz_dragdrop.js"></script>';
@@ -873,7 +919,14 @@ var actualYsize = '.$this->zoom_y.';
 		);
 	}
 
-	function render__effect_none($HTML, $cmd = '')	{
+	/**
+	 * This methods renders the interface for effects/commands "none" which do not need any parameters (grayscale, etc.)
+	 *
+	 * @param	string		The current HTML code
+	 * @param	string		The command being rendered
+	 * @return	string		The rendered interface
+	 */
+	protected function render__effect_none($HTML, $cmd = '')	{
 		global $LANG;
 		$HTML = str_replace('###IMG_EXTRA###', '', $HTML);
 		$HTML .= '<tr>
@@ -889,7 +942,15 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>';
 		return $HTML;
 	}
-	function render__effect_simple($HTML, $cmd = '')	{
+
+	/**
+	 * This methods renders the interface for "simple" effects/commands just requiring a single parameter
+	 *
+	 * @param	string		The current HTML code
+	 * @param	string		The command being rendered
+	 * @return	string		The rendered interface
+	 */
+	protected function render__effect_simple($HTML, $cmd = '')	{
 		global $LANG;
 		$HTML = str_replace('###IMG_EXTRA###', '', $HTML);
 		$HTML .= '<tr>
@@ -911,7 +972,14 @@ var actualYsize = '.$this->zoom_y.';
 		return $HTML;
 	}
 
-	function render__effect_double($HTML, $cmd = '')	{
+	/**
+	 * This methods renders the interface for "double" effects/commands requiring two parameters
+	 *
+	 * @param	string		The current HTML code
+	 * @param	string		The command being rendered
+	 * @return	string		The rendered interface
+	 */
+	protected function render__effect_double($HTML, $cmd = '')	{
 		global $LANG;
 		$HTML = str_replace('###IMG_EXTRA###', '', $HTML);
 		$HTML .= '<tr>
@@ -937,7 +1005,13 @@ var actualYsize = '.$this->zoom_y.';
 		return $HTML;
 	}
 	
-	function render__effect_rotate($HTML)	{
+	/**
+	 * This methods renders the interface for the effect/command "rotate"
+	 *
+	 * @param	string		The current HTML code
+	 * @return	string		The rendered interface
+	 */
+	protected function render__effect_rotate($HTML)	{
 		global $LANG;
 		$this->content = str_replace('###ON_LOAD_EVENT###', ' onload="windowLoad();" ', $this->content);
 		$HTML = str_replace('###IMG_EXTRA###', '<svg:rect id="kb_imageedit-svgbg" width="'.$this->zoom_x.'" height="'.$this->zoom_y.'" fill="rgb(0,0,0)" fill-opacity="1" />', $HTML);
@@ -1247,7 +1321,13 @@ function rotate_to(angle)	{
 		return $HTML;
 	}
 
-	function render__effect_gamma($HTML)	{
+	/**
+	 * This methods renders the interface for the effect/command "gamma"
+	 *
+	 * @param	string		The current HTML code
+	 * @return	string		The rendered interface
+	 */
+	protected function render__effect_gamma($HTML)	{
 		global $LANG;
 		$HTML = str_replace('###IMG_EXTRA###', '', $HTML);
 		$HTML .= '<tr>
@@ -1297,6 +1377,12 @@ function rotate_to(angle)	{
 		return $HTML;
 	}
 
+	/**
+	 * This methods renders the interface for the file-save feature
+	 *
+	 * @param	string		The current HTML code
+	 * @return	string		The rendered interface
+	 */
 	function render__file_save($HTML)	{
 		global $LANG;
 		$HTML = str_replace('###IMG_EXTRA###', '', $HTML);
@@ -1330,7 +1416,13 @@ function rotate_to(angle)	{
 	}
 
 //CROP BEGIN
-	function render__edit_crop($HTML)	{
+	/**
+	 * This methods renders the interface for the "crop" effect
+	 *
+	 * @param	string		The current HTML code
+	 * @return	string		The rendered interface
+	 */
+	protected function render__edit_crop($HTML)	{
 		global $LANG;
 		$this->content = str_replace('//###INIT_CODE###', ' 
 //###INIT_CODE###
@@ -1546,7 +1638,13 @@ function redraw_div(dimension)	{
 //CROP END
 
 //SCALE BEGIN
-	function render__edit_scale($HTML)	{
+	/**
+	 * This methods renders the interface for the "scale" effect
+	 *
+	 * @param	string		The current HTML code
+	 * @return	string		The rendered interface
+	 */
+	protected function render__edit_scale($HTML)	{
 		global $LANG;
 		$this->endDHTML = $this->doc->wrapScriptTags('
 SET_DHTML(CURSOR_MOVE);
@@ -1834,7 +1932,12 @@ function windowLoad()	{
 		return $HTML;
 	}
 
-	function getMenuItem_History()	{
+	/**
+	 * Returns the "Image History" tab content of the image editors DynTab menu
+	 *
+	 * @return	array		DynTab array entry
+	 */
+	protected function getMenuItem_History()	{
 		global $LANG;
 		$historytree =t3lib_div::makeInstance('tx_kbimageedit_browseHistory');
 		$historytree->init($this);
@@ -1865,7 +1968,16 @@ function windowLoad()	{
 		);
 	}
 			
-	function func__effect_none($image, $cmd, $x, $y)	{
+	/**
+	 * This methods performs effects which do not need any parameter ("none") and stores the result in the result tree
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @return	void
+	 */
+	protected function func__effect_none($image, $cmd, $x, $y)	{
 		list(,$imcmd) = explode('_', $cmd, 2);
 		$command = $this->stdGraphic->IMparams($imcmd);
 		if (!strlen($command))	{
@@ -1876,7 +1988,16 @@ function windowLoad()	{
 		$this->storeImage_File($newname, $cmd);
 	}
 
-	function func__effect_simple($image, $cmd, $x, $y)	{
+	/**
+	 * This methods performs effects which only needed one parameter ("simple") and stores the result in the result tree
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @return	void
+	 */
+	protected function func__effect_simple($image, $cmd, $x, $y)	{
 		$factor = intval(t3lib_div::_GP('factor'));
 		list(,$imcmd) = explode('_', $cmd, 2);
 		if ($this->stdGraphic->V5_EFFECTS)	{
@@ -1913,7 +2034,16 @@ function windowLoad()	{
 		$this->storeImage_File($newname, $cmd);
 	}
 	
-	function func__effect_double($image, $cmd, $x, $y)	{
+	/**
+	 * This methods performs effects which need two parameters ("double") and stores the result in the result tree
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @return	void
+	 */
+	protected function func__effect_double($image, $cmd, $x, $y)	{
 		$factor = intval(t3lib_div::_GP('factor'));
 		$factor2 = intval(t3lib_div::_GP('factor2'));
 		list(,$imcmd) = explode('_', $cmd, 2);
@@ -1934,7 +2064,16 @@ function windowLoad()	{
 		$this->storeImage_File($newname, $cmd);
 	}
 
-	function func__effect_gamma($image, $cmd, $x, $y)	{
+	/**
+	 * This methods performs the "gamma" effect and stores the result in the result tree
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @return	void
+	 */
+	protected function func__effect_gamma($image, $cmd, $x, $y)	{
 		$factor = doubleval(t3lib_div::_GP('factor'));
 		$red_factor = doubleval(t3lib_div::_GP('red_factor'));
 		$green_factor = doubleval(t3lib_div::_GP('green_factor'));
@@ -1953,7 +2092,18 @@ function windowLoad()	{
 		$this->storeImage_File($newname, $cmd);
 	}
 
-	function func__effect_rotate($image, $cmd, $x, $y, $angle = false, $dontstore = false)	{
+	/**
+	 * This methods performs the "rotate" effect and stores the result in the result tree
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @param	double		An "angle" parameter defining the degrees which to rotate the image
+	 * @param	boolean		If this flag is set, the image will not get stored but only returned
+	 * @return	string		The name of the rotated (and stored) temporary file
+	 */
+	protected function func__effect_rotate($image, $cmd, $x, $y, $angle = false, $dontstore = false)	{
 		if ($angle===false)	{
 			$angle = doubleval(t3lib_div::_GP('angle'));
 		}
@@ -1970,7 +2120,16 @@ function windowLoad()	{
 		return $newname;
 	}
 
-	function func__file_save($save, $cmd, $x, $y)	{
+	/**
+	 * This methods performs the "save" operation. On success this operation redirects the browser to the File>List module
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @return	boolean		"false" on error. On success browser gets redirected.
+	 */
+	protected function func__file_save($save, $cmd, $x, $y)	{
 		$filename = trim(t3lib_div::_GP('filename'));
 		$overwrite = intval(t3lib_div::_GP('overwrite'));
 		if (!strlen($filename))	{
@@ -2003,7 +2162,16 @@ function windowLoad()	{
 		}
 	}
 
-	function func__edit_crop($image, $cmd, $x, $y)	{
+	/**
+	 * This methods performs the "crop" operation and stores the result
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @return	void
+	 */
+	protected function func__edit_crop($image, $cmd, $x, $y)	{
 		$offsetx = intval(t3lib_div::_GP('offsetx'));
 		$offsety = intval(t3lib_div::_GP('offsety'));
 		$width = intval(t3lib_div::_GP('width'));
@@ -2021,7 +2189,16 @@ function windowLoad()	{
 		$this->storeImage_Object($im, $image, 'edit_crop');
 	}
 	
-	function func__edit_scale($image, $cmd, $x, $y)	{
+	/**
+	 * This methods performs the "scale" operation and stores the result
+	 *
+	 * @param	string		The image file being processed
+	 * @param	integer		The command-constant which operation to perform
+	 * @param	integer		The parameter $x passed for all "func__" methods
+	 * @param	integer		The parameter $y passed for all "func__" methods
+	 * @return	void
+	 */
+	protected function func__edit_scale($image, $cmd, $x, $y)	{
 		$width = intval(t3lib_div::_GP('width'));
 		$height = intval(t3lib_div::_GP('height'));
 		$colors = $this->identifyColors($image);
@@ -2035,10 +2212,16 @@ function windowLoad()	{
 		$this->storeImage_Object($im, $image, 'edit_scale');
 	}
 
-	function identifyColors($file)	{
+	/**
+	 * This methods returns the number of colors in an indexed-color file, or "true" for truecolor files ;)
+	 *
+	 * @param	string		The image to identify
+	 * @return	mixed			Either the size of the indexed-color palette or "true" for truecolor (24 bit) images
+	 */
+	protected function identifyColors($file)	{
 		if (!$this->stdGraphic->NO_IMAGE_MAGICK)	{
 			$frame = $this->stdGraphic->noFramePrepended?'':'[0]';
-			$cmd = t3lib_div::imageMagickCommand('identify', $this->stdGraphic->wrapFileName($file).$frame);
+			$cmd = t3lib_div::imageMagickCommand('identify', escapeshellarg($file).$frame);
 			exec($cmd, $returnVal);
 			$ret = $returnVal[0];
 			if (strpos($ret, 'DirectClass')!==false)	{
@@ -2054,7 +2237,16 @@ function windowLoad()	{
 		}	
 	}
 
-	function storeImage_Object($im, $origname, $action)	{
+	/**
+	 * This method stores the passed image object in a temporary location ("/typo3temp") using the passed
+	 * original name as guide and the "action" which was performed as addition to the filename
+	 *
+	 * @param	object		The GD image object
+	 * @param	string		The original name of the file which should get used as guide for the temporary name
+	 * @param	string		The action which was performed. This label will get added to the temporary file name
+	 * @return	void
+	 */
+	protected function storeImage_Object($im, $origname, $action)	{
 		$actualPath = t3lib_div::trimExplode('/', $this->sessionData['actualPath'], 1);
 		$actualArr = &$this->getFileFromPath($actualPath, $subtree = false);
 		$childArr = &$actualArr[$this->_SUB_LEVEL];
@@ -2086,7 +2278,15 @@ function windowLoad()	{
 				break;
 		}
 	}
-	function storeImage_File($newname, $action)	{
+
+	/**
+	 * This method stores the passed image filename in the history tree
+	 *
+	 * @param	string 		The name of the file to store in the history tree
+	 * @param	string		The action which was performed. This information will get added to the history tree
+	 * @return	void
+	 */
+	protected function storeImage_File($newname, $action)	{
 		$actualPath = t3lib_div::trimExplode('/', $this->sessionData['actualPath'], 1);
 		$actualArr = &$this->getFileFromPath($actualPath, $subtree = false);
 		$childArr = &$actualArr[$this->_SUB_LEVEL];
@@ -2104,14 +2304,25 @@ function windowLoad()	{
 		$this->sessionData['actualPath'] .= '/'.$uid;
 	}
 
-	function getTempName($origname)	{
+	/**
+	 * Returns a temporary name, based on the passed original name
+	 *
+	 * @param	string		Basename of original file on which temporary name should be based
+	 * @return	string		Absolute filename for temporary file in typo3temp/ directory
+	 */
+	protected function getTempName($origname)	{
 		$parts = explode('.', $origname);
 		$ext = strtolower(array_pop($parts));
 		$tempname = PATH_site.'typo3temp/kb_imageedit/tmp_'.$GLOBALS['BE_USER']->user['uid'].'_'.substr(md5(time().getmypid()),0,10).'.'.$ext;
 		return $tempname;
 	}
 
-	function cleanUpTempDir()	{
+	/**
+	 * Removes all temporary files of the current BE-User from the typo3temp/directory
+	 *
+	 * @return	void
+	 */
+	protected function cleanUpTempDir()	{
 		$dh = opendir(PATH_site.'typo3temp/kb_imageedit');
 		while ($file = readdir($dh))	{
 			if (strpos($file, 'tmp_'.$GLOBALS['BE_USER']->user['uid'].'_')===0)	{
@@ -2120,7 +2331,12 @@ function windowLoad()	{
 		}
 	}
 
-	function checkSVGsupport()	{
+	/**
+	 * Checks if the current browser supports SVG canvas. This method should get extended to new versions of IE, Opera and Safari
+	 *
+	 * @return	void
+	 */
+	protected function checkSVGsupport()	{
 		$ua = t3lib_div::getIndpEnv('HTTP_USER_AGENT');
 		if (preg_match('/Mozilla\/(4|5).*Firefox\/([0-9\.]+)/s', $ua, $matches)>0)	{
 			$reqVer = t3lib_div::int_from_ver('1.5.0');

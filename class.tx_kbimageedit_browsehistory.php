@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004 Bernhard Kraft (kraftb@kraftb.at)
+*  (c) 2004-2009 Bernhard Kraft (kraftb@think-open.at)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,24 +26,37 @@
  *
  * $Id$
  *
- * @author	Bernhard Kraft <kraftb@kraftb.at>
+ * @author	Bernhard Kraft <kraftb@think-open.at>
  */
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  */
 
+
 require_once (PATH_t3lib.'class.t3lib_treeview.php');
+
 
 class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	
-	function tx_kbimageedit_browseHistory()	{
+	/**
+	 * Constructor. This method initializes the object
+	 *
+	 * @return	void
+	 */
+	public function tx_kbimageedit_browseHistory()	{
 		$this->treeName='history';
 		$this->titleAttrib=''; //don't apply any title
 		$this->domIdPrefix = 'history';
 		parent::init();
 	}
 
-	function init($parent)	{
+	/**
+	 * This "init" method is called by the parent object
+	 *
+	 * @param	object	A reference to the parent object
+	 * @return	void
+	 */
+	public function init($parent)	{
 		$this->parent = &$parent;
 		$this->backPath = &$parent->doc->backPath;
 		$this->iconPath = 'gfx/fileicons/';
@@ -54,10 +67,10 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	 * Get icon for the row.
 	 * If $this->iconPath and $this->iconName is set, try to get icon based on those values.
 	 *
-	 * @param	array		Item row.
-	 * @return	string		Image tag.
+	 * @param	array			Item row
+	 * @return	string		Image tag
 	 */
-	function getIcon($row) {
+	public function getIcon($row) {
 		if ($this->iconPath) {
 			$icon = '<img'.t3lib_iconWorks::skinImg($this->backPath, $this->iconPath.$row['icon'],'width="18" height="16"').' alt="" />';
 		} 
@@ -70,7 +83,7 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	 * @param	array		Record for root.
 	 * @return	string		Icon image tag.
 	 */
-	function getRootIcon($rec) {
+	public function getRootIcon($rec) {
 		return $this->wrapIcon('<img'.t3lib_iconWorks::skinImg($this->backPath,'gfx/fileicons/'.$rec['icon'],'width="18" height="16"').' alt="" />',$rec);
 	}
 	
@@ -80,7 +93,7 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 	 * @param	integer		uid, <= 0 (normally, this does not matter)
 	 * @return	array		Array with title/uid keys with values of $this->title/0 (zero)
 	 */
-	function getRootRecord($uid) {
+	public function getRootRecord($uid) {
 		reset($this->parent->sessionData['fileTree']);
 		$key = key($this->parent->sessionData['fileTree']);
 		$title = $this->parent->sessionData['fileTree'][$key]['title'];
@@ -89,7 +102,15 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 		return array('title' => $title, 'uid' => 0, 'icon' => $icon, 'path' => $path);
 	}
 
-	function wrapTitle($title,$row,$bank=0)	{
+	/**
+	 * Wraps the passed title with a link
+	 *
+	 * @param	string	The title around which to wrap a link
+	 * @param	array		The current database row
+	 * @param	integer	bank
+	 * @return	string	The wrapped title
+	 */
+	public function wrapTitle($title,$row,$bank=0)	{
 		return '<a href="index.php?revert='.rawurlencode($row['path']).'">'.$title.'</a>';
 	}
 
@@ -97,10 +118,9 @@ class tx_kbimageedit_browseHistory extends t3lib_treeView {
 }
 
 
+
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/kb_imageedit/class.tx_kbimageedit_browsehistory.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/kb_imageedit/class.tx_kbimageedit_browsehistory.php']);
 }
-
-
 
 ?>

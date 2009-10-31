@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <description>Module labels</description>
+        <type>module</type>
+        <csh_table></csh_table>
+        <labelContext type="array">
+        </labelContext>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="error_invalid_action">Invalid action !</label>
+            <label index="title">Image Editor</label>
+            <label index="function_editor">Image Editor</label>
+            <label index="imageedit_label">Image Editor</label>
+            <label index="imageedit_description">Performs all actions</label>
+            <label index="imageinfo_label">Image Info</label>
+            <label index="imageinfo_description">Shows information about the Image</label>
+            <label index="history_label">History</label>
+            <label index="history_description">Allows one to revert to an previous state and perform actions on those.</label>
+            <label index="action_edit_crop">Edit: Crop image</label>
+            <label index="action_edit_scale">Edit: Scale image</label>
+            <label index="action_edit_text">Edit: Insert text</label>
+            <label index="action_effect_blur">Effect: Blur</label>
+            <label index="action_label_effect_blur">Blur factor (1-99)</label>
+            <label index="action_effect_sharpen">Effect: Sharpen</label>
+            <label index="action_label_effect_sharpen">Sharpen factor (1-99)</label>
+            <label index="action_effect_gamma">Effect: Gamma</label>
+            <label index="action_effect_solarize">Effect: Solarize</label>
+            <label index="action_label_effect_solarize">Solarize Threshold (0-99)</label>
+            <label index="action_effect_swirl">Effect: Swirl</label>
+            <label index="action_label_effect_swirl">Swirl amount (degree)</label>
+            <label index="action_effect_wave">Effect: Wave</label>
+            <label index="action_label_effect_wave">Amplitude (pixels)</label>
+            <label index="action_label2_effect_wave">Wavelength (pixels)</label>
+            <label index="action_effect_charcoal">Effect: Charcoal</label>
+            <label index="action_label_effect_charcoal">Effect: Charcoal&lt;br /&gt;(Resonable: 0-50&lt;br /&gt;50 takes very long)</label>
+            <label index="action_effect_gray">Effect: Grayscale</label>
+            <label index="action_label_effect_gray">Image gets converted to grayscale</label>
+            <label index="action_effect_edge">Effect: Edge detection</label>
+            <label index="action_label_effect_edge">Radius&lt;br /&gt;(Reasonable: 0-20)</label>
+            <label index="action_effect_emboss">Effect: Emboss</label>
+            <label index="action_label_effect_emboss">Radius&lt;br /&gt;(Reasonable: 0-20)</label>
+            <label index="action_effect_flip">Effect: Mirror (vertical)</label>
+            <label index="action_label_effect_flip">Mirror image vertically around a horizontal axis&lt;br /&gt;(If image is heads-down)</label>
+            <label index="action_effect_flop">Effect: Mirror (horizontal)</label>
+            <label index="action_label_effect_flop">Mirror image horizontally around a vertical axis&lt;br /&gt;(If image is mirrored)</label>
+            <label index="action_effect_rotate">Effect: Rotate</label>
+            <label index="action_effect_colors">Effect: Colors</label>
+            <label index="action_label_effect_colors">Colors</label>
+            <label index="action_effect_shear">Effect: Shear</label>
+            <label index="action_effect_invert">Effect: Invert</label>
+            <label index="action_label_effect_invert">Colors of image get inverted</label>
+            <label index="action_image_overlay">Image: Overlay</label>
+            <label index="action_draw_rectangle">Draw: Rectangle</label>
+            <label index="action_draw_circle">Draw: Circle</label>
+            <label index="action_file_save">File: Save</label>
+            <label index="acknowledge_action">Acknowledge action</label>
+            <label index="perform_action">Perform action !</label>
+            <label index="original_file">Original File</label>
+            <label index="cropFrames_custom">Custom</label>
+            <label index="scaleFrames_custom">Custom</label>
+            <label index="rotatePreset_custom">Custom</label>
+            <label index="save_file">Save file</label>
+            <label index="edit_info">Click with the mouse on the marked area and hold the mousebutton to drag it.&lt;br /&gt;
+			Hold the Shift-Key while dragging to resize the crop-area&lt;br /&gt;
+			Use the &quot;Perform Action&quot; button at the bottom of the form or double-click the crop-area&lt;br /&gt;&lt;br /&gt;
+			&lt;strong&gt;Use the &quot;SAVE&quot; button for storing the current image. When not saved the image will be lost when closing the editor&lt;/strong&gt;</label>
+        </languageKey>
+        <languageKey index="dk" type="array">
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="error_invalid_action">Ungültige Aktion !</label>
+            <label index="title">Image Editor</label>
+            <label index="function_editor">Image Editor</label>
+            <label index="imageedit_label">Image Editor</label>
+            <label index="imageedit_description">Führt alle Aktionen durch</label>
+            <label index="imageinfo_label">Image Info</label>
+            <label index="imageinfo_description">Zeigt Informationen zum Bild an</label>
+            <label index="history_label">Verlauf</label>
+            <label index="history_description">Erlaubt einem Aktionen rückgängig zu machen und auf die Vorläufer Aktionen durchzuführen</label>
+            <label index="action_edit_crop">Bearbeiten: Bild zuschneiden</label>
+            <label index="action_edit_scale">Bearbeiten: Bild skalieren</label>
+            <label index="action_edit_text">Bearbeiten: Text einfügen</label>
+            <label index="action_effect_blur">Effekt: Verschwommen</label>
+            <label index="action_effect_sharpen">Effekt: Schärfen</label>
+            <label index="action_effect_gamma">Effekt: Gamma-Korrektur</label>
+            <label index="action_effect_solarize">Effekt: Solarize</label>
+            <label index="action_effect_swirl">Effekt: Swirl</label>
+            <label index="action_effect_wave">Effekt: Welle</label>
+            <label index="action_effect_charcoal">Effekt: Kohle</label>
+            <label index="action_effect_grey">Effekt: Graustufen</label>
+            <label index="action_effect_edge">Effekt: Kantenerkennung</label>
+            <label index="action_effect_emboss">Effekt: Prägen</label>
+            <label index="action_effect_flip">Effekt: Spiegeln (vertikal)</label>
+            <label index="action_effect_flop">Effekt: Spiegeln (horizontal)</label>
+            <label index="action_effect_rotate">Effekt: Rotieren</label>
+            <label index="action_effect_colors">Effekt: Farbanzahl</label>
+            <label index="action_effect_shear">Effekt: Schere</label>
+            <label index="action_effect_invert">Effekt: Invertieren</label>
+            <label index="action_image_overlay">Bild: Überlagern</label>
+            <label index="action_draw_rectangle">Zeichnen: Rechteck</label>
+            <label index="action_draw_circle">Zeichnen: Kreis</label>
+            <label index="action_file_save">Datei: Speichern</label>
+            <label index="acknowledge_action">Aktion bestätigen</label>
+            <label index="perform_action">Aktion durchführen !</label>
+            <label index="original_file">Original Datei</label>
+            <label index="cropFrames_custom">Benutzerdefiniert</label>
+            <label index="scaleFrames_custom">Benutzerdefiniert</label>
+            <label index="rotatePreset_custom">Benutzerdefiniert</label>
+            <label index="save_file">Datei speichern</label>
+            <label index="edit_info">Click with the mouse on the marked area and hold the mousebutton to drag it.&lt;br /&gt;
+			Hold the Shift-Key while dragging to resize the crop-area&lt;br /&gt;
+			Use the &quot;Perform Action&quot; button at the bottom of the form or double-click the crop-area&lt;br /&gt;&lt;br /&gt;
+			&lt;strong&gt;Use the &quot;SAVE&quot; button for storing the current image. When not saved the image will be lost when closing the editor&lt;/strong&gt;</label>
+        </languageKey>
+        <languageKey index="no" type="array">
+        </languageKey>
+        <languageKey index="it" type="array">
+        </languageKey>
+        <languageKey index="fr" type="array">
+        </languageKey>
+        <languageKey index="es" type="array">
+        </languageKey>
+        <languageKey index="nl" type="array">
+        </languageKey>
+        <languageKey index="cz" type="array">
+        </languageKey>
+        <languageKey index="pl" type="array">
+        </languageKey>
+        <languageKey index="si" type="array">
+        </languageKey>
+        <languageKey index="fi" type="array">
+        </languageKey>
+        <languageKey index="tr" type="array">
+        </languageKey>
+        <languageKey index="se" type="array">
+        </languageKey>
+        <languageKey index="pt" type="array">
+        </languageKey>
+        <languageKey index="ru" type="array">
+        </languageKey>
+        <languageKey index="ro" type="array">
+        </languageKey>
+        <languageKey index="ch" type="array">
+        </languageKey>
+        <languageKey index="sk" type="array">
+        </languageKey>
+        <languageKey index="lt" type="array">
+        </languageKey>
+        <languageKey index="is" type="array">
+        </languageKey>
+        <languageKey index="hr" type="array">
+        </languageKey>
+        <languageKey index="hu" type="array">
+        </languageKey>
+        <languageKey index="gl" type="array">
+        </languageKey>
+        <languageKey index="th" type="array">
+        </languageKey>
+        <languageKey index="gr" type="array">
+        </languageKey>
+        <languageKey index="hk" type="array">
+        </languageKey>
+        <languageKey index="eu" type="array">
+        </languageKey>
+        <languageKey index="bg" type="array">
+        </languageKey>
+        <languageKey index="br" type="array">
+        </languageKey>
+        <languageKey index="et" type="array">
+        </languageKey>
+        <languageKey index="ar" type="array">
+        </languageKey>
+        <languageKey index="he" type="array">
+        </languageKey>
+        <languageKey index="ua" type="array">
+        </languageKey>
+        <languageKey index="lv" type="array">
+        </languageKey>
+        <languageKey index="jp" type="array">
+        </languageKey>
+        <languageKey index="vn" type="array">
+        </languageKey>
+        <languageKey index="ca" type="array">
+        </languageKey>
+        <languageKey index="ba" type="array">
+        </languageKey>
+        <languageKey index="kr" type="array">
+        </languageKey>
+        <languageKey index="eo" type="array">
+        </languageKey>
+        <languageKey index="my" type="array">
+        </languageKey>
+    </data>
+    <orig_hash type="array">
+        <languageKey index="default" type="array">
+            <label index="error_invalid_action" type="integer">59526810</label>
+            <label index="title" type="integer">258142023</label>
+            <label index="function_editor" type="integer">258142023</label>
+            <label index="imageedit_label" type="integer">258142023</label>
+            <label index="imageedit_description" type="integer">191287946</label>
+            <label index="imageinfo_label" type="integer">227842872</label>
+            <label index="imageinfo_description" type="integer">90041981</label>
+            <label index="history_label" type="integer">23931704</label>
+            <label index="history_description" type="integer">67978627</label>
+            <label index="action_edit_crop" type="integer">39302406</label>
+            <label index="action_edit_scale" type="integer">143413586</label>
+            <label index="action_edit_text" type="integer">138520369</label>
+            <label index="action_effect_blur" type="integer">147423969</label>
+            <label index="action_label_effect_blur" type="integer">257492124</label>
+            <label index="action_effect_sharpen" type="integer">104438282</label>
+            <label index="action_label_effect_sharpen" type="integer">113744947</label>
+            <label index="action_effect_gamma" type="integer">11910553</label>
+            <label index="action_effect_solarize" type="integer">85756054</label>
+            <label index="action_label_effect_solarize" type="integer">235816028</label>
+            <label index="action_effect_swirl" type="integer">237206290</label>
+            <label index="action_label_effect_swirl" type="integer">51271978</label>
+            <label index="action_effect_wave" type="integer">212953029</label>
+            <label index="action_label_effect_wave" type="integer">172958559</label>
+            <label index="action_label2_effect_wave" type="integer">90131295</label>
+            <label index="action_effect_charcoal" type="integer">209960585</label>
+            <label index="action_label_effect_charcoal" type="integer">19182032</label>
+            <label index="action_effect_gray" type="integer">56562347</label>
+            <label index="action_label_effect_gray" type="integer">213660200</label>
+            <label index="action_effect_edge" type="integer">136955243</label>
+            <label index="action_label_effect_edge" type="integer">68382492</label>
+            <label index="action_effect_emboss" type="integer">59935706</label>
+            <label index="action_label_effect_emboss" type="integer">68382492</label>
+            <label index="action_effect_flip" type="integer">213809900</label>
+            <label index="action_label_effect_flip" type="integer">223827641</label>
+            <label index="action_effect_flop" type="integer">153979026</label>
+            <label index="action_label_effect_flop" type="integer">160643970</label>
+            <label index="action_effect_rotate" type="integer">72216365</label>
+            <label index="action_effect_colors" type="integer">213834652</label>
+            <label index="action_label_effect_colors" type="integer">97847433</label>
+            <label index="action_effect_shear" type="integer">40811771</label>
+            <label index="action_effect_invert" type="integer">83841901</label>
+            <label index="action_label_effect_invert" type="integer">83553459</label>
+            <label index="action_image_overlay" type="integer">9240365</label>
+            <label index="action_draw_rectangle" type="integer">16337976</label>
+            <label index="action_draw_circle" type="integer">87376368</label>
+            <label index="action_file_save" type="integer">110247036</label>
+            <label index="acknowledge_action" type="integer">14501510</label>
+            <label index="perform_action" type="integer">114675238</label>
+            <label index="original_file" type="integer">43792550</label>
+            <label index="cropFrames_custom" type="integer">151357892</label>
+            <label index="scaleFrames_custom" type="integer">151357892</label>
+            <label index="rotatePreset_custom" type="integer">151357892</label>
+            <label index="save_file" type="integer">56437089</label>
+            <label index="edit_info" type="integer">33336489</label>
+        </languageKey>
+        <languageKey index="dk" type="array">
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="error_invalid_action" type="integer">59526810</label>
+            <label index="title" type="integer">258142023</label>
+            <label index="function_editor" type="integer">258142023</label>
+            <label index="imageedit_label" type="integer">258142023</label>
+            <label index="imageedit_description" type="integer">191287946</label>
+            <label index="imageinfo_label" type="integer">227842872</label>
+            <label index="imageinfo_description" type="integer">90041981</label>
+            <label index="history_label" type="integer">23931704</label>
+            <label index="history_description" type="integer">67978627</label>
+            <label index="action_edit_crop" type="integer">39302406</label>
+            <label index="action_edit_scale" type="integer">143413586</label>
+            <label index="action_edit_text" type="integer">138520369</label>
+            <label index="action_effect_blur" type="integer">147423969</label>
+            <label index="action_effect_sharpen" type="integer">104438282</label>
+            <label index="action_effect_gamma" type="integer">11910553</label>
+            <label index="action_effect_solarize" type="integer">85756054</label>
+            <label index="action_effect_swirl" type="integer">237206290</label>
+            <label index="action_effect_wave" type="integer">212953029</label>
+            <label index="action_effect_charcoal" type="integer">209960585</label>
+            <label index="action_effect_grey" type="integer">222419149</label>
+            <label index="action_effect_edge" type="integer">136955243</label>
+            <label index="action_effect_emboss" type="integer">59935706</label>
+            <label index="action_effect_flip" type="integer">213809900</label>
+            <label index="action_effect_flop" type="integer">153979026</label>
+            <label index="action_effect_rotate" type="integer">72216365</label>
+            <label index="action_effect_colors" type="integer">213834652</label>
+            <label index="action_effect_shear" type="integer">40811771</label>
+            <label index="action_effect_invert" type="integer">83841901</label>
+            <label index="action_image_overlay" type="integer">9240365</label>
+            <label index="action_draw_rectangle" type="integer">16337976</label>
+            <label index="action_draw_circle" type="integer">87376368</label>
+            <label index="action_file_save" type="integer">110247036</label>
+            <label index="acknowledge_action" type="integer">14501510</label>
+            <label index="perform_action" type="integer">114675238</label>
+            <label index="original_file" type="integer">43792550</label>
+            <label index="cropFrames_custom" type="integer">151357892</label>
+            <label index="scaleFrames_custom" type="integer">151357892</label>
+            <label index="rotatePreset_custom" type="integer">151357892</label>
+            <label index="save_file" type="integer">56437089</label>
+            <label index="edit_info" type="integer">33336489</label>
+        </languageKey>
+        <languageKey index="no" type="array">
+        </languageKey>
+        <languageKey index="it" type="array">
+        </languageKey>
+        <languageKey index="fr" type="array">
+        </languageKey>
+        <languageKey index="es" type="array">
+        </languageKey>
+        <languageKey index="nl" type="array">
+        </languageKey>
+        <languageKey index="cz" type="array">
+        </languageKey>
+        <languageKey index="pl" type="array">
+        </languageKey>
+        <languageKey index="si" type="array">
+        </languageKey>
+        <languageKey index="fi" type="array">
+        </languageKey>
+        <languageKey index="tr" type="array">
+        </languageKey>
+        <languageKey index="se" type="array">
+        </languageKey>
+        <languageKey index="pt" type="array">
+        </languageKey>
+        <languageKey index="ru" type="array">
+        </languageKey>
+        <languageKey index="ro" type="array">
+        </languageKey>
+        <languageKey index="ch" type="array">
+        </languageKey>
+        <languageKey index="sk" type="array">
+        </languageKey>
+        <languageKey index="lt" type="array">
+        </languageKey>
+        <languageKey index="is" type="array">
+        </languageKey>
+        <languageKey index="hr" type="array">
+        </languageKey>
+        <languageKey index="hu" type="array">
+        </languageKey>
+        <languageKey index="gl" type="array">
+        </languageKey>
+        <languageKey index="th" type="array">
+        </languageKey>
+        <languageKey index="gr" type="array">
+        </languageKey>
+        <languageKey index="hk" type="array">
+        </languageKey>
+        <languageKey index="eu" type="array">
+        </languageKey>
+        <languageKey index="bg" type="array">
+        </languageKey>
+        <languageKey index="br" type="array">
+        </languageKey>
+        <languageKey index="et" type="array">
+        </languageKey>
+        <languageKey index="ar" type="array">
+        </languageKey>
+        <languageKey index="he" type="array">
+        </languageKey>
+        <languageKey index="ua" type="array">
+        </languageKey>
+        <languageKey index="lv" type="array">
+        </languageKey>
+        <languageKey index="jp" type="array">
+        </languageKey>
+        <languageKey index="vn" type="array">
+        </languageKey>
+        <languageKey index="ca" type="array">
+        </languageKey>
+        <languageKey index="ba" type="array">
+        </languageKey>
+        <languageKey index="kr" type="array">
+        </languageKey>
+        <languageKey index="eo" type="array">
+        </languageKey>
+        <languageKey index="my" type="array">
+        </languageKey>
+    </orig_hash>
+    <orig_text type="array">
+        <languageKey index="default" type="array">
+        </languageKey>
+        <languageKey index="dk" type="array">
+        </languageKey>
+        <languageKey index="de" type="array">
+        </languageKey>
+        <languageKey index="no" type="array">
+        </languageKey>
+        <languageKey index="it" type="array">
+        </languageKey>
+        <languageKey index="fr" type="array">
+        </languageKey>
+        <languageKey index="es" type="array">
+        </languageKey>
+        <languageKey index="nl" type="array">
+        </languageKey>
+        <languageKey index="cz" type="array">
+        </languageKey>
+        <languageKey index="pl" type="array">
+        </languageKey>
+        <languageKey index="si" type="array">
+        </languageKey>
+        <languageKey index="fi" type="array">
+        </languageKey>
+        <languageKey index="tr" type="array">
+        </languageKey>
+        <languageKey index="se" type="array">
+        </languageKey>
+        <languageKey index="pt" type="array">
+        </languageKey>
+        <languageKey index="ru" type="array">
+        </languageKey>
+        <languageKey index="ro" type="array">
+        </languageKey>
+        <languageKey index="ch" type="array">
+        </languageKey>
+        <languageKey index="sk" type="array">
+        </languageKey>
+        <languageKey index="lt" type="array">
+        </languageKey>
+        <languageKey index="is" type="array">
+        </languageKey>
+        <languageKey index="hr" type="array">
+        </languageKey>
+        <languageKey index="hu" type="array">
+        </languageKey>
+        <languageKey index="gl" type="array">
+        </languageKey>
+        <languageKey index="th" type="array">
+        </languageKey>
+        <languageKey index="gr" type="array">
+        </languageKey>
+        <languageKey index="hk" type="array">
+        </languageKey>
+        <languageKey index="eu" type="array">
+        </languageKey>
+        <languageKey index="bg" type="array">
+        </languageKey>
+        <languageKey index="br" type="array">
+        </languageKey>
+        <languageKey index="et" type="array">
+        </languageKey>
+        <languageKey index="ar" type="array">
+        </languageKey>
+        <languageKey index="he" type="array">
+        </languageKey>
+        <languageKey index="ua" type="array">
+        </languageKey>
+        <languageKey index="lv" type="array">
+        </languageKey>
+        <languageKey index="jp" type="array">
+        </languageKey>
+        <languageKey index="vn" type="array">
+        </languageKey>
+        <languageKey index="ca" type="array">
+        </languageKey>
+        <languageKey index="ba" type="array">
+        </languageKey>
+        <languageKey index="kr" type="array">
+        </languageKey>
+        <languageKey index="eo" type="array">
+        </languageKey>
+        <languageKey index="my" type="array">
+        </languageKey>
+    </orig_text>
+</T3locallang>
