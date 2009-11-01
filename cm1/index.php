@@ -708,7 +708,7 @@ var zoomLevel = '.$this->MOD_SETTINGS['zoom'].';
 		$HTML .= '<table cellspacing="0" cellpadding="0" border="0" class="kb_imageedit-actiontable">
 				<tr>
 					<td class="label">
-						Filename :
+						'.$LANG->getLL('filename').'
 					</td>
 					<td class="value">
 						'.$this->baseFile.'
@@ -716,15 +716,15 @@ var zoomLevel = '.$this->MOD_SETTINGS['zoom'].';
 				</tr>
 				<tr>
 					<td class="label">
-						Image-Size :
+						'.$LANG->getLL('image_size').'
 					</td>
 					<td class="value">
-						'.$this->x.' x '.$this->y.' Pixels
+						'.$this->x.' x '.$this->y.' '.$LANG->getLL('pixels').'
 					</td>
 				</tr>
 				<tr>
 					<td class="label">
-						Format :
+						'.$LANG->getLL('format').'
 					</td>
 					<td class="value">
 						'.$this->format.'
@@ -764,7 +764,7 @@ var actualYsize = '.$this->zoom_y.';
 		if (!$this->modTSconfig['properties']['disable_zoom'])	{
 			$HTML .= '<tr>
 					<td class="kb_imageedit-zoomtd">
-							Zoom: <br />
+							'.$LANG->getLL('zoom').' <br />
 							'.t3lib_BEfunc::getFuncMenu(0, 'SET[zoom]', $this->MOD_SETTINGS['zoom'], $this->MOD_MENU['zoom']).'
 					</td>
 				</tr>';
@@ -788,7 +788,7 @@ var actualYsize = '.$this->zoom_y.';
 		<table cellspacing="0" cellpadding="4" border="0" class="kb_imageedit-actiontable">
 				<tr>
 					<td class="label">
-						Action to perform :
+						'.$LANG->getLL('action_to_perform').'
 					</td>
 					<td colspan="3">'.chr(10);
 		$action = t3lib_BEfunc::getFuncMenu(0,'SET[action]',$this->MOD_SETTINGS['action'],$this->MOD_MENU['action']);
@@ -996,7 +996,7 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							Rotate presets :
+							'.$LANG->getLL('rotate_presets').'
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[rotate]',$this->MOD_SETTINGS['rotate'],$this->MOD_MENU['rotate']).'
@@ -1004,8 +1004,7 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							Angle (degree) :<br />
-							(positive = clockwise)
+							'.$LANG->getLL('action_label_effect_rotate').'
 						</td>
 						<td class="input">
 							<input type="text" name="angle" value="'.(($this->MOD_SETTINGS['rotate']=='custom')?0:$this->MOD_SETTINGS['rotate']).'" class="number" '.((($this->useSVG&&$this->SVGsupport)||$this->ajax)?'onchange="return rotate_to(this.value)"':'').' />
@@ -1013,7 +1012,8 @@ var actualYsize = '.$this->zoom_y.';
 						</td>
 						'.($this->modTSconfig['properties']['disable_rotateColors']?'<td colspan="2"></td>':'
 						<td class="label">
-							Background RED (0-255) :
+							'.$LANG->getLL('action_label2_effect_rotate').'
+							
 						</td>
 						<td class="input">
 							<input type="text" name="back_red" value="0" class="number" onchange="return update_bg();" />
@@ -1030,7 +1030,8 @@ var actualYsize = '.$this->zoom_y.';
 						<td colspan="2" class="label">
 						</td>
 						<td class="label">
-							Background GREEN (0-255) :
+							'.$LANG->getLL('action_label3_effect_rotate').'
+							
 						</td>
 						<td class="input">
 							<input type="text" name="back_green" value="0" class="number" onchange="return update_bg();" />
@@ -1040,7 +1041,7 @@ var actualYsize = '.$this->zoom_y.';
 						<td colspan="2" class="label">
 						</td>
 						<td class="label">
-							Background BLUE (0-255) :
+							'.$LANG->getLL('action_label4_effect_rotate').'
 						</td>
 						<td class="input">
 							<input type="text" name="back_blue" value="0" class="number" onchange="return update_bg();" />
@@ -1050,7 +1051,7 @@ var actualYsize = '.$this->zoom_y.';
 						<td colspan="2" class="label">
 						</td>
 						<td class="label">
-							Background ALPHA (0-255) :
+							'.$LANG->getLL('action_label5_effect_rotate').'
 						</td>
 						<td class="input">
 							<input type="text" name="back_alpha" value="0" class="number" onchange="return update_bg();" />
@@ -1075,16 +1076,15 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							Combined gamma factor :<br />
-							(reasonable: 0.8 - 2.3)
+					'.$LANG->getLL('action_label2_effect_sharpen').'
 						</td>
 						<td class="input">
 							<input type="text" name="factor" value="1.0" class="number" onChange="document.forms[0][\'red_factor\'].value = this.value; document.forms[0][\'green_factor\'].value = this.value; document.forms[0][\'blue_factor\'].value = this.value; " />
 							<input type="hidden" name="action" value="effect_gamma" />
 						</td>
 						<td class="label">
-							Gamma factor RED :<br />
-							(reasonable: 0.8 - 2.3)
+							'.$LANG->getLL('action_label3_effect_sharpen').'
+							
 						</td>
 						<td class="input">
 							<input type="text" name="red_factor" value="1.0" class="number" />
@@ -1094,8 +1094,7 @@ var actualYsize = '.$this->zoom_y.';
 						<td colspan="2" class="label">
 						</td>
 						<td class="label">
-							Gamma factor GREEN :<br />
-							(reasonable: 0.8 - 2.3)
+						'.$LANG->getLL('action_label4_effect_sharpen').'
 						</td>
 						<td class="input">
 							<input type="text" name="green_factor" value="1.0" class="number" />
@@ -1105,8 +1104,7 @@ var actualYsize = '.$this->zoom_y.';
 						<td colspan="2" class="label">
 						</td>
 						<td class="label">
-							Gamma factor BLUE :<br />
-							(reasonable: 0.8 - 2.3)
+						'.$LANG->getLL('action_label5_effect_sharpen').'	
 						</td>
 						<td class="input">
 							<input type="text" name="blue_factor" value="1.0" class="number" />
@@ -1133,14 +1131,14 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							Filename :
+							'.$LANG->getLL('filename').'
 						</td>
 						<td class="input">
 							<input type="text" name="filename" value="'.$newname.'" class="string" />
 						</td>
 						<td class="label">
-							Overwrite :
-						</td>
+							'.$LANG->getLL('overwrite').'
+							</td>
 						<td class="input">
 							<input type="checkbox" name="overwrite" value="1" />
 						</td>
@@ -1223,7 +1221,7 @@ SET_DHTML(CURSOR_MOVE, RESIZABLE);
 					</tr>
 					<tr>
 						<td class="label">
-							Crop presets :
+							'.$LANG->getLL('action_label_edit_crop').'
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[cropFrames]',$this->MOD_SETTINGS['cropFrames'],$this->MOD_MENU['cropFrames']).'
@@ -1231,7 +1229,8 @@ SET_DHTML(CURSOR_MOVE, RESIZABLE);
 					</tr>
 					<tr>
 						<td class="label">
-							Border color :
+						'.$LANG->getLL('border_color').'
+						
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[edit_crop_bordercolor]',$this->MOD_SETTINGS['edit_crop_bordercolor'],$this->MOD_MENU['edit_crop_bordercolor']).'
@@ -1239,13 +1238,15 @@ SET_DHTML(CURSOR_MOVE, RESIZABLE);
 					</tr>
 					<tr>
 						<td class="label">
-							Offset X :
+						'.$LANG->getLL('ofsetx').'
+							
 						</td>
 						<td class="input">
 							<input type="text" name="offsetx" value="0" class="number" onChange="return redraw_div(\'x\')" />
 						</td>
 						<td class="label">
-							Offset Y :
+						'.$LANG->getLL('ofsety').'
+							
 						</td>
 						<td class="input">
 							<input type="text" name="offsety" value="0" class="number" onChange="return redraw_div(\'y\');" />
@@ -1253,13 +1254,13 @@ SET_DHTML(CURSOR_MOVE, RESIZABLE);
 					</tr>
 					<tr>
 						<td class="label">
-							Width :
+							'.$LANG->getLL('new_width').'
 						</td>
 						<td class="input">
 							<input type="text" name="width" value="'.$this->cropFrameX.'" class="number" onChange="return redraw_div(\'w\');" />
 						</td>
 						<td class="label">
-							Height :
+							'.$LANG->getLL('new_height').' 
 							</td>
 						<td class="input">
 							<input type="text" name="height" value="'.$this->cropFrameY.'" class="number" onChange="return redraw_div(\'h\');" />
@@ -1525,7 +1526,7 @@ func'.'tion windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-							Scale presets:
+							'.$LANG->getLL('action_label_edit_scale').'
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[scaleFrames]',$this->MOD_SETTINGS['scaleFrames'],$this->MOD_MENU['scaleFrames']).'
@@ -1533,13 +1534,14 @@ func'.'tion windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-							New width:
+						'.$LANG->getLL('new_width').'
+							
 						</td>
 						<td class="input">
 							<input type="text" name="width" value="'.$this->x.'" class="number" onchange="return rescale(\'x\');" />
 						</td>
 						<td class="label">
-							New height:
+							'.$LANG->getLL('new_height').'
 						</td>
 						<td class="input">
 							<input type="text" name="height" value="'.$this->y.'" class="number" onchange="return rescale(\'y\');" />
@@ -1548,7 +1550,7 @@ func'.'tion windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-							Keep ratio:
+						'.$LANG->getLL('keep_ratio').'	
 						</td>
 						<td colspan="3" class="input">
 							<input type="checkbox" name="ratio" value="1" onchange="return rescale(\'x\');" />
@@ -1556,7 +1558,7 @@ func'.'tion windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-							Knob color :
+						'.$LANG->getLL('knob_color').'		
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[edit_crop_bordercolor]',$this->MOD_SETTINGS['edit_crop_bordercolor'],$this->MOD_MENU['edit_crop_bordercolor']).'

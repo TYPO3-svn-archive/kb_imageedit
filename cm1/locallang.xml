@@ -66,6 +66,31 @@
 			Hold the Shift-Key while dragging to resize the crop-area&lt;br /&gt;
 			Use the &quot;Perform Action&quot; button at the bottom of the form or double-click the crop-area&lt;br /&gt;&lt;br /&gt;
 			&lt;strong&gt;Use the &quot;SAVE&quot; button for storing the current image. When not saved the image will be lost when closing the editor&lt;/strong&gt;</label>
+			<label index="filename">Filename:</label>
+			<label index="image_size">Image-Size:</label>
+			<label index="pixels">Pixels</label>
+			<label index="format">Format:</label>
+			<label index="zoom">Zoom:</label>
+			<label index="action_to_perform">Action to perform:</label>
+			<label index="action_label_effect_rotate">Angle (degree): &lt;br /&gt;(positive = clockwise)</label>
+			<label index="action_label2_effect_rotate">Background RED (0-255):</label>
+			<label index="action_label3_effect_rotate">Background GREEN (0-255):</label>
+			<label index="action_label4_effect_rotate">Background BLUE (0-255):</label>
+			<label index="action_label5_effect_rotate">Background ALPHA (0-255):</label>
+			<label index="action_label2_effect_sharpen">Combined gamma factor:&lt;br /&gt;(reasonable: 0.8 - 2.3)</label>
+			<label index="action_label3_effect_sharpen">Gamma factor RED:&lt;br /&gt;(reasonable: 0.8 - 2.3)</label>
+			<label index="action_label4_effect_sharpen">Gamma factor GREEN:&lt;br /&gt;(reasonable: 0.8 - 2.3)</label>
+			<label index="action_label5_effect_sharpen">Gamma factor BLUE:&lt;br /&gt;(reasonable: 0.8 - 2.3)</label>
+			<label index="overwrite">Overwrite:</label>
+			<label index="action_label_edit_crop">Crop presets:</label>
+			<label index="border_color">Border color:</label>
+			<label index="ofsetx">Offset X:</label>
+			<label index="ofsety">Offset Y:</label>
+			<label index="new_width">New width:</label>
+			<label index="new_height">New height:</label>
+			<label index="action_label_edit_scale">Scale presets:</label>
+			<label index="keep_ratio">Keep ratio:</label>
+			<label index="knob_color">Knob color:</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="error_invalid_action">Ungültige Aktion !</label>
