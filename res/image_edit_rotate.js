@@ -20,6 +20,12 @@ function rotate_to(angle)	{
 			col_a = 0;
 		}
 		ajax_doRequest("###AJAX_LINK###&a="+angle+"&c="+reqCnt+"&back_red="+col_r+"&back_green="+col_g+"&back_blue="+col_b+"&back_alpha="+col_a);
+	
+	document.forms[0]["back_red"].value = col_r;
+	document.forms[0]["back_green"].value = col_g;
+	document.forms[0]["back_blue"].value = col_b;
+	document.forms[0]["back_alpha"].value = col_a;
+	
 	}
 }
 

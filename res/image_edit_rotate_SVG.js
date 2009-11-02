@@ -151,6 +151,11 @@ function update_bg()	{
 	}
 	svgbg.setAttribute("fill", "rgb("+col_r+","+col_g+","+col_b+")");
 	svgbg.setAttribute("fill-opacity", 1-(col_a/255));
+	
+	document.forms[0]["back_red"].value = col_r;
+	document.forms[0]["back_green"].value = col_g;
+	document.forms[0]["back_blue"].value = col_b;
+	document.forms[0]["back_alpha"].value = col_a;
 }
 
 	function initRotate()	{

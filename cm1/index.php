@@ -165,14 +165,14 @@ class tx_kbimageedit_cm1 extends t3lib_SCbase {
 				ACTION_DRAW_CIRCLE => $LANG->getLL('action_draw_circle'),
 			),
 			'edit_crop_bordercolor' => array(
-				 'ff0000' => 'red',
-				 '00ff00' => 'green',
-				 '0000ff' => 'blue',
-				 'ffffff' => 'white',
-				 '000000' => 'black',
-				 '00ffff' => 'cyan',
-				 'ff00ff' => 'magenta',
-				 'ffff00' => 'yellow',
+				 'ff0000' =>  $LANG->getLL('red'),
+				 '00ff00' => $LANG->getLL('green'),
+				 '0000ff' => $LANG->getLL('blue'),
+				 'ffffff' => $LANG->getLL('white'),
+				 '000000' => $LANG->getLL('black'),
+				 '00ffff' => $LANG->getLL('cyan'),
+				 'ff00ff' => $LANG->getLL('magenta'),
+				 'ffff00' => $LANG->getLL('yellow'),
 			),
 			'zoom' => array(
 				100 => '100%',
@@ -189,9 +189,9 @@ class tx_kbimageedit_cm1 extends t3lib_SCbase {
 			),
 			'rotate' => array(
 				'custom' => $LANG->getLL('rotatePreset_custom'),
-				90 => '90° clockwise',
-				-90 => '90° counter-clockwise',
-				180 => '180°',
+				90 => $LANG->getLL('rotatePreset_90'),
+				-90 => $LANG->getLL('rotatePreset_-90'),
+				180 => $LANG->getLL('rotatePreset_180'),
 			),
 		);
 		if (intval($this->modTSconfig['properties']['clearZoomLevels']))	{
@@ -317,7 +317,7 @@ class tx_kbimageedit_cm1 extends t3lib_SCbase {
 
 		$this->doc = t3lib_div::makeInstance('bigDoc');
 		$this->doc->backPath = $BACK_PATH;
-		$this->doc->form='<form action="index.php" method="POST" name="kb_imageedit_form" enctype="multipart/form-data" target="_self">';
+		$this->doc->form='<form action="index.php" method="post" name="kb_imageedit_form" enctype="multipart/form-data" target="_self">';
 
 		if ($this->modTSconfig['properties']['disable_zoom'])	{
 			$this->MOD_SETTINGS['zoom'] = 100.0;
@@ -556,17 +556,17 @@ var zoomLevel = '.$this->MOD_SETTINGS['zoom'].';
 //###INIT_CODE###
 ');
 			if ($this->useSVG)	{
-					// Set docType after start page cause we need to set our own <?xml...> tag (with SVG support included)
+					// Set docType after start page cause we need to set our own xml tag (with SVG support included)
 				header ('Content-Type:application/xhtml+xml;charset='.$this->charset);
 				$this->doc->docType = 'xhtml_trans';
 				$parts = explode(chr(10), $this->content, 5);
 				$header = preg_replace('/<link\s+rel="stylesheet"([^>]*)href="([^"]*)\/typo3\/stylesheet.css"([^>])\/>/', '<link rel="stylesheet" href="../res/stylesheet.css" type="text/css" id="basicStyle" />', $parts[4]);
-				$header = preg_replace('/<meta\s+http-equiv="Content-Type"\scontent="text\/html([^"]*)"([^>]*)\/>/', '<meta http-eqiv="Content-Type" content="application/xhtml+xml$1"$2 />', $header);
+				$header = preg_replace('/<meta\s+http-equiv="Content-Type"\scontent="text\/html([^"]*)"([^>]*)\/>/', '<meta http-equiv="Content-Type" content="application/xhtml+xml$1"$2 />', $header);
 				$this->content = '<?xml version="1.0" encoding="'.$this->doc->charset.'"?>
 <!DOCTYPE html
 		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg">'.$header;
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"><head>'.$header;
 			}
 
 			$this->content.=$this->doc->header($LANG->getLL('title'));
@@ -915,7 +915,7 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							'.$LANG->getLL('action_label_'.$cmd).' :
+							'.$LANG->getLL('action_label_'.$cmd).':
 						</td>
 						<td class="input">
 							<input type="text" name="factor" value="0" class="number" />
@@ -944,14 +944,14 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							'.$LANG->getLL('action_label_'.$cmd).' :
+							'.$LANG->getLL('action_label_'.$cmd).':
 						</td>
 						<td class="input">
 							<input type="text" name="factor" value="0" class="number" />
 							<input type="hidden" name="action" value="'.$cmd.'" />
 						</td>
 						<td class="label">
-							'.$LANG->getLL('action_label2_'.$cmd).' :
+							'.$LANG->getLL('action_label2_'.$cmd).':
 						</td>
 						<td class="input">
 							<input type="text" name="factor2" value="0" class="number" />
@@ -996,7 +996,7 @@ var actualYsize = '.$this->zoom_y.';
 					</tr>
 					<tr>
 						<td class="label">
-							'.$LANG->getLL('rotate_presets').'
+							'.$LANG->getLL('action_label6_effect_rotate').'
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[rotate]',$this->MOD_SETTINGS['rotate'],$this->MOD_MENU['rotate']).'

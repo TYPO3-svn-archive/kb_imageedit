@@ -3,5 +3,12 @@ define('ACTION_EDIT_TEXT', 'edit_text');						// Not implemented
 define('ACTION_EFFECT_SHEAR', 'effect_shear');				// TODO: SVG
 define('ACTION_DRAW_RECTANGLE', 'draw_rectangle');		// TODO: SVG
 define('ACTION_DRAW_CIRCLE', 'draw_circle');					// TODO: SVG
+define('ACTION_IMAGE_OVERLAY', 'image_overlay');          // Not implemented
 
 Check SVG capabilities of other browsers and fix method "checkSVGsupport" in cm1/index.php
+
+ROTATION
+- rotating using mouse is quite hard: 
+--to start rotating you must click and start dragging and then release the mouse key. 
+But while you are holding the mouse key and dragging, the image isn't rotating.
+-- to stop the rotation you must click with the left key somethere outside the image. If you click inside the image tha rotation will not be saved and the image will return to it's initialy position.
