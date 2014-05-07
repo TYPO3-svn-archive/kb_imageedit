@@ -24,6 +24,7 @@
 /**
  * kb_imageedit module cm1
  *
+ * $Id$
  * @author	Bernhard Kraft <kraftb@think-open.at>
  */
 /**
@@ -1013,7 +1014,7 @@ var actualYsize = '.$this->zoom_y.';
 						'.($this->modTSconfig['properties']['disable_rotateColors']?'<td colspan="2"></td>':'
 						<td class="label">
 							'.$LANG->getLL('action_label2_effect_rotate').'
-							
+
 						</td>
 						<td class="input">
 							<input type="text" name="back_red" value="0" class="number" onchange="return update_bg();" />
@@ -1031,7 +1032,7 @@ var actualYsize = '.$this->zoom_y.';
 						</td>
 						<td class="label">
 							'.$LANG->getLL('action_label3_effect_rotate').'
-							
+
 						</td>
 						<td class="input">
 							<input type="text" name="back_green" value="0" class="number" onchange="return update_bg();" />
@@ -1084,7 +1085,7 @@ var actualYsize = '.$this->zoom_y.';
 						</td>
 						<td class="label">
 							'.$LANG->getLL('action_label3_effect_sharpen').'
-							
+
 						</td>
 						<td class="input">
 							<input type="text" name="red_factor" value="1.0" class="number" />
@@ -1104,7 +1105,7 @@ var actualYsize = '.$this->zoom_y.';
 						<td colspan="2" class="label">
 						</td>
 						<td class="label">
-						'.$LANG->getLL('action_label5_effect_sharpen').'	
+						'.$LANG->getLL('action_label5_effect_sharpen').'
 						</td>
 						<td class="input">
 							<input type="text" name="blue_factor" value="1.0" class="number" />
@@ -1230,7 +1231,7 @@ SET_DHTML(CURSOR_MOVE, RESIZABLE);
 					<tr>
 						<td class="label">
 						'.$LANG->getLL('border_color').'
-						
+
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[edit_crop_bordercolor]',$this->MOD_SETTINGS['edit_crop_bordercolor'],$this->MOD_MENU['edit_crop_bordercolor']).'
@@ -1239,14 +1240,14 @@ SET_DHTML(CURSOR_MOVE, RESIZABLE);
 					<tr>
 						<td class="label">
 						'.$LANG->getLL('ofsetx').'
-							
+
 						</td>
 						<td class="input">
 							<input type="text" name="offsetx" value="0" class="number" onChange="return redraw_div(\'x\')" />
 						</td>
 						<td class="label">
 						'.$LANG->getLL('ofsety').'
-							
+
 						</td>
 						<td class="input">
 							<input type="text" name="offsety" value="0" class="number" onChange="return redraw_div(\'y\');" />
@@ -1260,7 +1261,7 @@ SET_DHTML(CURSOR_MOVE, RESIZABLE);
 							<input type="text" name="width" value="'.$this->cropFrameX.'" class="number" onChange="return redraw_div(\'w\');" />
 						</td>
 						<td class="label">
-							'.$LANG->getLL('new_height').' 
+							'.$LANG->getLL('new_height').'
 							</td>
 						<td class="input">
 							<input type="text" name="height" value="'.$this->cropFrameY.'" class="number" onChange="return redraw_div(\'h\');" />
@@ -1535,7 +1536,7 @@ func'.'tion windowLoad()	{
 					<tr>
 						<td class="label">
 						'.$LANG->getLL('new_width').'
-							
+
 						</td>
 						<td class="input">
 							<input type="text" name="width" value="'.$this->x.'" class="number" onchange="return rescale(\'x\');" />
@@ -1550,7 +1551,7 @@ func'.'tion windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-						'.$LANG->getLL('keep_ratio').'	
+						'.$LANG->getLL('keep_ratio').'
 						</td>
 						<td colspan="3" class="input">
 							<input type="checkbox" name="ratio" value="1" onchange="return rescale(\'x\');" />
@@ -1558,7 +1559,7 @@ func'.'tion windowLoad()	{
 					</tr>
 					<tr>
 						<td class="label">
-						'.$LANG->getLL('knob_color').'		
+						'.$LANG->getLL('knob_color').'
 						</td>
 						<td colspan="3">
 							'.t3lib_BEfunc::getFuncMenu(0,'SET[edit_crop_bordercolor]',$this->MOD_SETTINGS['edit_crop_bordercolor'],$this->MOD_MENU['edit_crop_bordercolor']).'
@@ -1781,7 +1782,11 @@ func'.'tion windowLoad()	{
 		if (basename(dirname($this->absoluteFile))==='typo3temp')	{
 			if (@rename($this->absoluteFile, $actPath.'/'.$filename))	{
 				$this->cleanUpTempDir();
-				header('Location: '.t3lib_div::locationHeaderUrl($this->doc->backPath.'file_list.php?id='.$actPath.'/'));
+				if (t3lib_extMgm::isLoaded('dam')) {
+					header('Location: ' . t3lib_div::locationHeaderUrl('/typo3conf/ext/dam/mod_file/'  . 'index.php?&SLCMD[SELECT][txdamFolder][' . $actPath . ']=1'));
+				} else {
+					header('Location: ' . t3lib_div::locationHeaderUrl($this->doc->backPath . 'file_list.php?id=' . $actPath . '/'));
+				}
 				exit();
 			} else	{
 				return false;

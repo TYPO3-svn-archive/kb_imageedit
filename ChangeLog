@@ -1,3 +1,7 @@
+2014-05-07  Franz Holzinger  <franz@ttproducts.de>
+
+	* fix bug #5495
+
 2009-10-31  Bernhard Kraft  <kraftb@think-open.at>
 
 	* Moved some JS and CSS code into external files (cleanups)
